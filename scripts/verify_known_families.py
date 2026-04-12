@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify benchmark small-Diophantine families and emit giant examples."""
+"""Verify known small-Diophantine family surfaces and emit giant examples."""
 
 from __future__ import annotations
 

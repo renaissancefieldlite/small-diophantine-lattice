@@ -6,7 +6,7 @@ This file is the baton-pass note for the small-Diophantine lane.
 
 It exists so the next Rick does not flatten:
 
-- the warm-up benchmark
+- the warm-up reference lane
 - the full-problem equations already solved by direct substitution
 - the still-open residue
 
@@ -18,7 +18,7 @@ Start from this and do not drift:
 
 1. The overall Epoch small-Diophantine problem is still unsolved.
 2. As of `2026-04-11`, the latest Epoch page says:
-   - `GPT-5.4 Pro` solved
+   - public direct-substitution families exist for:
      - `z^2 + y^2 z - z + x^3 + 2 = 0`
      - `z^2 + y^2 z + x^3 + x + 1 = 0`
    - the problem authors subsequently solved
@@ -26,8 +26,9 @@ Start from this and do not drift:
 3. That leaves exactly `6` open full equations.
 4. The warm-up
    - `z^2 + y^2 z + x^3 + 2 = 0`
-   is a benchmark lane, not one of the nine full equations.
-5. The warm-up family is real and should be treated as a verified benchmark.
+   is a reference lane, not one of the nine full equations.
+5. The warm-up family is real and should be treated as a verified reference
+   surface.
 6. The direct-substitution lane is still alive because it solved multiple
    equations, but it is no longer enough to assume that every remaining
    equation falls to the same tiny ansatz.
@@ -37,13 +38,13 @@ Start from this and do not drift:
 This repo currently does four things:
 
 1. preserve the source-backed status of the problem
-2. verify the benchmark families already known
+2. verify the known family surfaces already in hand
 3. scan the residue for warm-up-style Pell-discriminant substitutions
 4. hold the next attack plan for direct polynomial identities
 
 ## Current Search Split
 
-### Lane A: Verified benchmark families
+### Lane A: Verified known-family surfaces
 
 Keep these separate and checked:
 
@@ -76,5 +77,5 @@ python3 scripts/search_direct_families.py --status open --bound 3 --max-results 
 - do not call the warm-up a full-problem solve
 - do not say seven equations remain open; the current dated source says six
 - do not claim the bounded discriminant scan solves the residue if it only
-  rediscovers benchmarks or returns no hits
+  rediscovers known families or returns no hits
 - do not let direct-substitution hope outrun checked artifact state

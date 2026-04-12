@@ -5,11 +5,17 @@
 Reduce the live frontier to a disciplined residue and attack that residue with
 explicit direct-substitution searches before widening into heavier geometry.
 
+Side note:
+
+- the concept build for this lane came from a combination of nodes
+- that is background context, not the main work product here
+- the main work product is the exact derivation/search pipeline
+
 ## Current Split
 
-### Node 1: Benchmark verification
+### Node 1: Known-family verification
 
-Keep the known families executable and checked:
+Keep the known family surfaces executable and checked:
 
 - warm-up Tomita recurrence
 - `-z + x^3 + 2` cube-forcing family
@@ -44,6 +50,21 @@ Search objective:
 
 This is the warm-up pattern and may hit some of the remaining equations.
 
+### Node 2A: Seed-to-recurrence derivation
+
+Before asking for a recurrence, pin down a real seed and a real transformed
+quadratic form.
+
+Process:
+
+- start from an exact seed triple for one open equation
+- rewrite the discriminant around a substitution family
+- force the squarefree part toward a degree-`2` indefinite form
+- only then derive the recurrence matrix
+
+This is where Rudy's Pell instinct belongs, but as a derived step rather than
+as a generic first guess.
+
 ### Node 3: Polynomial-identity ansatz
 
 The second search family is:
@@ -64,10 +85,11 @@ This is the shape that solves `x + 1`.
 
 ## Order Of Attack
 
-1. verify all benchmark families locally
+1. verify all known family surfaces locally
 2. run bounded Pell-discriminant scans on the six open equations
-3. if the discriminant scan is sparse, add the polynomial-identity engine
-4. if both direct-substitution families stall, shift to cubic-surface geometry:
+3. build seed sets and recurrence questions from exact small solutions
+4. if the discriminant scan is sparse, add the polynomial-identity engine
+5. if both direct-substitution families stall, shift to cubic-surface geometry:
    - rational point
    - tangent-secant
    - rational curves

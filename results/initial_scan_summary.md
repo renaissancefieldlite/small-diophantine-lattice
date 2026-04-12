@@ -2,7 +2,7 @@
 
 Date: `2026-04-11`
 
-## Verified benchmark families
+## Verified known-family surfaces
 
 File:
 
@@ -14,7 +14,7 @@ Verified locally:
 - `z^2 + y^2 z - z + x^3 + 2 = 0`
 - `z^2 + y^2 z + x^3 + x + 1 = 0`
 
-Each of those benchmark lanes now has explicit examples with `|x| > 10^50`.
+Each of those known family surfaces now has explicit examples with `|x| > 10^50`.
 
 ## Bounded Pell-discriminant scan
 

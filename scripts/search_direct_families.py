@@ -130,7 +130,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--status",
         default="open",
-        choices=["all", "open", "benchmark", "solved"],
+        choices=["all", "open", "known", "solved"],
         help="Which equation subset to scan.",
     )
     parser.add_argument(
@@ -160,7 +160,7 @@ def keep_equation(equation: dict[str, Any], mode: str) -> bool:
         return True
     if mode == "open":
         return status == "open"
-    if mode == "benchmark":
+    if mode == "known":
         return equation["group"] == "warmup" or status.startswith("solved")
     if mode == "solved":
         return status != "open"

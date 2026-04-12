@@ -11,8 +11,7 @@ Source:
 Latest source-backed status on that page:
 
 - the overall problem is still unsolved
-- on `2026-03-05`, `GPT-5.4 Pro` solved two of the nine full equations by
-  direct substitution
+- the page records two full equations with public direct-substitution families
 - the page now also says the problem authors adapted one of those substitutions
   to solve a third equation:
   - `z^2 + y^2 z + x^3 + x - 1 = 0`
@@ -67,9 +66,9 @@ Under:
 - `Y = -z`
 - `Z = y`
 
-this is exactly the warm-up:
+this is exactly the warm-up reference lane:
 
 - `z^2 + y^2 z + x^3 + 2 = 0`
 
-The warm-up is therefore a verified benchmark lane, but it is not one of the
+The warm-up is therefore a verified reference family, but it is not one of the
 nine full equations.
