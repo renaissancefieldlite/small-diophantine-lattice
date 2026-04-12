@@ -1,6 +1,6 @@
 # Factor-Pair Search: full_minus2
 
-- Generated: `2026-04-12 11:21:10`
+- Generated: `2026-04-12 12:44:51`
 - Equation: `z^2 + y^2 z + x^3 - 2 = 0`
 
 ## Formulation
@@ -59,7 +59,10 @@
 
 ### branch_lead_2_3_1
 
-- Result: `partial_reduction`
+- Result: `no_go`
+- The b1 = 0 branch is impossible by the square obstruction 4501 a2^2 - 1444 = 0.
+- The b1 != 0 branch is impossible because the two exact nonzero-b1 elimination polynomials are coprime.
+- Therefore the reduced quartic/cubic/sextic factor-pair branch over the leading point (2, 3, 1) has no rational solution.
 
 ### shifted_quadratic_quadratic_quadratic
 
@@ -68,4 +71,4 @@
 
 ## Next Action
 
-Three seed-shifted factor-pair templates are now eliminated exactly. The live next rung is the odd branch of the reduced quartic/cubic/sextic core on (a2, b1, b2) for the leading point (a4, b3, p6) = (2, 3, 1), after the exact elimination of the b1 = 0 branch.
+Three seed-shifted factor-pair templates are now eliminated exactly, and the first reduced-core leading branch (a4, b3, p6) = (2, 3, 1) is also eliminated exactly. The live next rung is the reduced quartic/cubic/sextic core on the next leading-surface point, starting with (a4, b3, p6) = (2, 3, 8).

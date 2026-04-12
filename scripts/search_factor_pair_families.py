@@ -120,6 +120,13 @@ def numerators(polys: list[sp.Expr]) -> list[sp.Expr]:
     return rows
 
 
+def strip_variable_power(expr: sp.Expr, var: sp.Symbol) -> tuple[int, sp.Expr]:
+    poly = sp.Poly(sp.expand(expr), var, domain="QQ")
+    min_power = min(monom[0] for monom, coeff in poly.terms() if coeff)
+    stripped = sp.expand(poly.as_expr() / (var**min_power))
+    return min_power, stripped
+
+
 def shifted_linear_template() -> dict[str, Any]:
     n = sp.symbols("n")
     u, v, w = sp.symbols("u v w")
@@ -507,6 +514,27 @@ def branch_231_reduction() -> dict[str, Any]:
         )[0]
         / -2
     )
+    e6 = sp.expand(
+        sp.fraction(
+            sp.together(
+                -a2**3
+                + 12 * a2 * a4
+                + b1**2 * p4
+                + 2 * b1 * b2 * p3
+                + 2 * b1 * b3 * p2
+                + 6 * b1 * p5
+                + b2**2 * p2
+                + 2 * b2 * b3 * p1
+                + 6 * b2 * p4
+                - b3**2
+                + 6 * b3 * p3
+                - 2 * p1 * p5
+                - 2 * p2 * p4
+                - p3**2
+                + 11 * p6
+            )
+        )[0]
+    )
 
     b1_zero_b2 = sp.Rational(-126, 19) * a2
     b1_zero_obstructions = {
@@ -546,12 +574,23 @@ def branch_231_reduction() -> dict[str, Any]:
     }
 
     odd_branch_resultant = sp.factor(sp.resultant(e11, e7, b2))
+    odd_branch_e6_resultant = sp.factor(sp.resultant(e11, e6, b2))
+    odd_branch_e10_resultant = sp.factor(sp.resultant(e11, e10, b2))
+    odd_branch_v6 = sp.factor(sp.resultant(sp.Poly(odd_branch_resultant, a2), sp.Poly(odd_branch_e6_resultant, a2), a2))
+    odd_branch_v10 = sp.factor(sp.resultant(sp.Poly(odd_branch_resultant, a2), sp.Poly(odd_branch_e10_resultant, a2), a2))
+    odd_branch_v6_power, odd_branch_v6_nonzero = strip_variable_power(odd_branch_v6, b1)
+    odd_branch_v10_power, odd_branch_v10_nonzero = strip_variable_power(odd_branch_v10, b1)
+    odd_branch_gcd = sp.gcd(
+        sp.Poly(odd_branch_v6_nonzero, b1, domain="QQ"),
+        sp.Poly(odd_branch_v10_nonzero, b1, domain="QQ"),
+    )
 
     return {
         "slug": "branch_lead_2_3_1",
         "leading_point": [2, 3, 1],
-        "result": "partial_reduction",
+        "result": "no_go",
         "equations": {
+            "E6": str(sp.factor(e6)),
             "E11": str(sp.factor(e11)),
             "E10": str(sp.factor(e10)),
             "E7": str(sp.factor(e7)),
@@ -569,11 +608,36 @@ def branch_231_reduction() -> dict[str, Any]:
         "odd_branch": {
             "condition": "b1 != 0",
             "elimination_object": str(odd_branch_resultant),
-            "next_action": (
-                "Continue on the odd branch by combining this resultant with E10 or E6 to eliminate a2 "
-                "and isolate the remaining b1-candidates."
-            ),
+            "bridge_resultants": {
+                "E11_E6": str(odd_branch_e6_resultant),
+                "E11_E10": str(odd_branch_e10_resultant),
+            },
+            "nonzero_b1_obstructions": {
+                "from_E6": {
+                    "removed_b1_power": odd_branch_v6_power,
+                    "degree_in_b1": sp.Poly(odd_branch_v6_nonzero, b1, domain="QQ").degree(),
+                    "polynomial": str(odd_branch_v6_nonzero),
+                },
+                "from_E10": {
+                    "removed_b1_power": odd_branch_v10_power,
+                    "degree_in_b1": sp.Poly(odd_branch_v10_nonzero, b1, domain="QQ").degree(),
+                    "polynomial": str(odd_branch_v10_nonzero),
+                },
+            },
+            "intersection_gcd": str(odd_branch_gcd.as_expr()),
+            "result": "no_go",
+            "proof_summary": [
+                "Eliminating b2 from (E11, E7), (E11, E6), and (E11, E10) gives exact resultants in (a2, b1).",
+                "Eliminating a2 from the pairs (R7, R6) and (R7, R10) gives two univariate obstructions in b1.",
+                "After removing the forced b1-powers coming from the excluded branch b1 = 0, the two remaining b1-polynomials are coprime.",
+                "So there is no nonzero rational b1 satisfying both obstructions, and the odd branch is impossible.",
+            ],
         },
+        "proof_summary": [
+            "The b1 = 0 branch is impossible by the square obstruction 4501 a2^2 - 1444 = 0.",
+            "The b1 != 0 branch is impossible because the two exact nonzero-b1 elimination polynomials are coprime.",
+            "Therefore the reduced quartic/cubic/sextic factor-pair branch over the leading point (2, 3, 1) has no rational solution.",
+        ],
     }
 
 
@@ -675,10 +739,10 @@ def build_report(x_bound: int, max_examples: int, a_bound: int, b_bound: int) ->
             bounded_quadratic_template(a_bound, b_bound),
         ],
         "next_action": (
-            "Three seed-shifted factor-pair templates are now eliminated exactly. "
-            "The live next rung is the odd branch of the reduced quartic/cubic/sextic core on "
-            "(a2, b1, b2) for the leading point (a4, b3, p6) = (2, 3, 1), after the exact "
-            "elimination of the b1 = 0 branch."
+            "Three seed-shifted factor-pair templates are now eliminated exactly, and the first "
+            "reduced-core leading branch (a4, b3, p6) = (2, 3, 1) is also eliminated exactly. "
+            "The live next rung is the reduced quartic/cubic/sextic core on the next leading-surface "
+            "point, starting with (a4, b3, p6) = (2, 3, 8)."
         ),
     }
 
