@@ -138,3 +138,6 @@ Generated locally in the first pass:
 - `results/initial_discriminant_scan_bound2.json`
   - zero Pell-discriminant hits in the `[-2, 2]` coefficient box for all six
     currently open full equations
+- `results/initial_discriminant_scan_bound3.json`
+  - zero Pell-discriminant hits in the `[-3, 3]` coefficient box for all six
+    currently open full equations

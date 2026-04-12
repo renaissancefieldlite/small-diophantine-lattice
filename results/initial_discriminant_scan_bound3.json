@@ -1,0 +1,43 @@
+{
+  "status_filter": "open",
+  "bound": 3,
+  "max_results_per_equation": 12,
+  "results": {
+    "full_minus2": {
+      "equation": "z^2 + y^2 z + x^3 - 2 = 0",
+      "status": "open",
+      "hit_count": 0,
+      "hits": []
+    },
+    "full_minus_x_minus_1": {
+      "equation": "z^2 + y^2 z + x^3 - x - 1 = 0",
+      "status": "open",
+      "hit_count": 0,
+      "hits": []
+    },
+    "full_minus3": {
+      "equation": "z^2 + y^2 z + x^3 - 3 = 0",
+      "status": "open",
+      "hit_count": 0,
+      "hits": []
+    },
+    "full_plus3": {
+      "equation": "z^2 + y^2 z + x^3 + 3 = 0",
+      "status": "open",
+      "hit_count": 0,
+      "hits": []
+    },
+    "full_minus_x_minus_2": {
+      "equation": "z^2 + y^2 z + x^3 - x - 2 = 0",
+      "status": "open",
+      "hit_count": 0,
+      "hits": []
+    },
+    "full_minus_x_plus_2": {
+      "equation": "z^2 + y^2 z + x^3 - x + 2 = 0",
+      "status": "open",
+      "hit_count": 0,
+      "hits": []
+    }
+  }
+}
