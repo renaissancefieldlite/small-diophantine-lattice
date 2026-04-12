@@ -1,0 +1,180 @@
+{
+  "generated_at": "2026-04-12 09:19:27",
+  "equation": {
+    "slug": "full_minus2",
+    "equation": "z^2 + y^2 z + x^3 - 2 = 0",
+    "a": 0,
+    "b": -2,
+    "c": 0,
+    "group": "full",
+    "status": "open",
+    "source": "https://epoch.ai/frontiermath/open-problems/small-diophantine"
+  },
+  "seed": {
+    "x": -2,
+    "y": 3,
+    "z": 1,
+    "ranked_seed_index": 7,
+    "seed_source": "results/open_seed_triples_bound30.json"
+  },
+  "lanes": [
+    {
+      "slug": "shifted_discriminant",
+      "title": "Shifted Discriminant",
+      "status": "no_hit_in_bounded_scan",
+      "seed_formula": {
+        "x": "-2 + A n^2 + B n",
+        "y": "3 + C n"
+      },
+      "summary": "Generated the exact degree-6 discriminant system and scanned A,B,C in [-3,3] with A != 0 and C != 0.",
+      "unknown_count": 9,
+      "equation_count": 7,
+      "bounded_scan": {
+        "bound": 3,
+        "hit_count": 0,
+        "hits": []
+      },
+      "exact_system": [
+        "-4*A**3 - q2*s2**2",
+        "-12*A**2*B - q1*s2**2 - 2*q2*s1*s2",
+        "24*A**2 - 12*A*B**2 + C**4 - q0*s2**2 - 2*q1*s1*s2 - 2*q2*s0*s2 - q2*s1**2",
+        "48*A*B - 4*B**3 + 12*C**3 - 2*q0*s1*s2 - 2*q1*s0*s2 - q1*s1**2 - 2*q2*s0*s1",
+        "-48*A + 24*B**2 + 54*C**2 - 2*q0*s0*s2 - q0*s1**2 - 2*q1*s0*s1 - q2*s0**2",
+        "-48*B + 108*C - 2*q0*s0*s1 - q1*s0**2",
+        "-q0*s0**2 + 121"
+      ],
+      "next_action": "Keep the exact system, but do not claim a no-go beyond the bounded scan."
+    },
+    {
+      "slug": "shifted_identity",
+      "title": "Shifted Identity",
+      "status": "system_generated",
+      "seed_formula": {
+        "x": "-2 + a2 t^2 + a4 t^4",
+        "y": "3 + b1 t + b2 t^2 + b3 t^3",
+        "z": "1 + c2 t^2 + c4 t^4 + c6 t^6"
+      },
+      "summary": "Built the exact shifted quartic/cubic/sextic identity system through the chosen seed.",
+      "unknown_count": 8,
+      "equation_count": 12,
+      "low_degree_equations": [
+        {
+          "power": 6,
+          "equation": "a2**3 - 12*a2*a4 + b1**2*c4 + 2*b1*b3*c2 + b2**2*c2 + 6*b2*c4 + b3**2 + 2*c2*c4 + 11*c6"
+        },
+        {
+          "power": 5,
+          "equation": "2*b1*b2*c2 + 6*b1*c4 + 2*b2*b3 + 6*b3*c2"
+        },
+        {
+          "power": 4,
+          "equation": "-6*a2**2 + 12*a4 + b1**2*c2 + 2*b1*b3 + b2**2 + 6*b2*c2 + c2**2 + 11*c4"
+        },
+        {
+          "power": 3,
+          "equation": "2*b1*b2 + 6*b1*c2 + 6*b3"
+        },
+        {
+          "power": 2,
+          "equation": "12*a2 + b1**2 + 6*b2 + 11*c2"
+        },
+        {
+          "power": 1,
+          "equation": "6*b1"
+        }
+      ],
+      "next_action": "Run an exact Groebner-basis or elimination solve on this shifted system."
+    },
+    {
+      "slug": "factor_pair",
+      "title": "Factor-Pair",
+      "status": "exact_examples_found",
+      "summary": "Searched x in [-60,60] using p=-z, q=z+y^2+0, so pq=x^3+0x+-2 and p+q=y^2+0.",
+      "bounded_x_scan": {
+        "bound": 60,
+        "example_count": 8,
+        "examples": [
+          {
+            "x": -52,
+            "y": -31,
+            "z": 129,
+            "p": -129,
+            "q": 1090
+          },
+          {
+            "x": -52,
+            "y": 31,
+            "z": 129,
+            "p": -129,
+            "q": 1090
+          },
+          {
+            "x": -52,
+            "y": -31,
+            "z": -1090,
+            "p": 1090,
+            "q": -129
+          },
+          {
+            "x": -52,
+            "y": 31,
+            "z": -1090,
+            "p": 1090,
+            "q": -129
+          },
+          {
+            "x": -32,
+            "y": 9,
+            "z": 145,
+            "p": -145,
+            "q": 226
+          },
+          {
+            "x": -32,
+            "y": -9,
+            "z": 145,
+            "p": -145,
+            "q": 226
+          },
+          {
+            "x": -32,
+            "y": 9,
+            "z": -226,
+            "p": 226,
+            "q": -145
+          },
+          {
+            "x": -32,
+            "y": -9,
+            "z": -226,
+            "p": 226,
+            "q": -145
+          }
+        ]
+      },
+      "next_action": "Promote the factor-pair reformulation into a family search around the strongest examples."
+    }
+  ],
+  "overview": {
+    "generated_at": "2026-04-12 09:19:27",
+    "equation_slug": "full_minus2",
+    "chosen_seed": {
+      "x": -2,
+      "y": 3,
+      "z": 1,
+      "ranked_seed_index": 7,
+      "seed_source": "results/open_seed_triples_bound30.json"
+    },
+    "recommended_next_step": {
+      "lane": "factor_pair",
+      "action": "Promote the factor-pair lane as the strongest live surface while the identity system waits for exact elimination."
+    },
+    "workflow": [
+      "Gather seeds",
+      "Run shifted discriminant lane",
+      "Build shifted identity system",
+      "Run factor-pair lane",
+      "Promote strongest exact surface"
+    ]
+  }
+}

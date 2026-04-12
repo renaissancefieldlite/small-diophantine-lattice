@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Small Diophantine Lattice Dashboard</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Small Diophantine Lattice</p>
+          <h1>Portfolio Monitor</h1>
+          <p class="lede">
+            One-equation visual board for the live lane: seed floor, exact search
+            surfaces, current promotion logic, and the next algebraic move.
+          </p>
+        </div>
+        <div class="hero-side" id="hero-side"></div>
+      </header>
+
+      <main class="layout">
+        <section class="panel primary">
+          <div class="panel-head">
+            <h2>Workflow</h2>
+            <p id="generated-at"></p>
+          </div>
+          <ol class="workflow" id="workflow"></ol>
+        </section>
+
+        <section class="panel accent">
+          <div class="panel-head">
+            <h2>Next Action</h2>
+          </div>
+          <div id="next-action"></div>
+        </section>
+
+        <section class="panel wide">
+          <div class="panel-head">
+            <h2>Lane Portfolio</h2>
+            <p>The runner tests the lanes in order, but only promotes exact structure.</p>
+          </div>
+          <div class="lane-grid" id="lane-grid"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <h2>Equation</h2>
+          </div>
+          <div id="equation-card"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <h2>Chosen Seed</h2>
+          </div>
+          <div id="seed-card"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./latest_portfolio.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

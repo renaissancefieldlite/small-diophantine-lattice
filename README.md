@@ -70,6 +70,10 @@ Still-open full equations:
   - bounded direct-substitution ansatz scanner
 - `scripts/find_seed_triples.py`
   - extracts small exact seed triples for the open equations
+- `scripts/run_portfolio.py`
+  - runs one equation through the current portfolio and emits dashboard-ready data
+- `dashboard/`
+  - optional static visual board for the current portfolio state
 - `results/`
   - generated scan outputs and verified examples
 
@@ -147,6 +151,20 @@ cd /Users/renaissancefieldlite1.0/Documents/Playground/small-diophantine-lattice
 python3 scripts/search_direct_families.py --status open --bound 2 --max-results 12 \
   --emit-json results/initial_discriminant_scan_bound2.json
 ```
+
+Generate the current one-equation portfolio board:
+
+```bash
+cd /Users/renaissancefieldlite1.0/Documents/Playground/small-diophantine-lattice
+python3 scripts/run_portfolio.py --equation full_minus2
+```
+
+Optional visual component:
+
+- open `dashboard/index.html` directly in a browser
+- the board reads `dashboard/latest_portfolio.js`
+- this is a thin tracking layer only; the repo and result artifacts remain the
+  source of truth
 
 ## Current Work Order
 
