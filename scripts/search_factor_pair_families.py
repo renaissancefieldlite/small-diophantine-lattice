@@ -127,6 +127,15 @@ def strip_variable_power(expr: sp.Expr, var: sp.Symbol) -> tuple[int, sp.Expr]:
     return min_power, stripped
 
 
+def is_rational_square(value: sp.Rational) -> bool:
+    if value < 0:
+        return False
+    num, den = value.as_numer_denom()
+    num_int = int(num)
+    den_int = int(den)
+    return math.isqrt(num_int) ** 2 == num_int and math.isqrt(den_int) ** 2 == den_int
+
+
 def shifted_linear_template() -> dict[str, Any]:
     n = sp.symbols("n")
     u, v, w = sp.symbols("u v w")
@@ -447,11 +456,11 @@ def general_quartic_cubic_sextic_reduction() -> dict[str, Any]:
     }
 
 
-def branch_231_reduction() -> dict[str, Any]:
+def reduced_core_branch_reduction(a4_value: int, b3_value: int, p6_value: int, slug: str) -> dict[str, Any]:
     a2, b1, b2 = sp.symbols("a2 b1 b2")
-    a4 = sp.Integer(2)
-    b3 = sp.Integer(3)
-    p6 = sp.Integer(1)
+    a4 = sp.Integer(a4_value)
+    b3 = sp.Integer(b3_value)
+    p6 = sp.Integer(p6_value)
 
     p1 = sp.expand(6 * b1 / 11)
     p2 = sp.expand((1452 * a2 - 239 * b1**2 + 726 * b2) / 1331)
@@ -490,20 +499,18 @@ def branch_231_reduction() -> dict[str, Any]:
     e7 = sp.expand(
         sp.fraction(
             sp.together(
-                (
-                    b1**2 * p5
-                    + 2 * b1 * b2 * p4
-                    + 2 * b1 * b3 * p3
-                    + 6 * b1 * p6
-                    + b2**2 * p3
-                    + 2 * b2 * b3 * p2
-                    + 6 * b2 * p5
-                    + b3**2 * p1
-                    + 6 * b3 * p4
-                    - 2 * p1 * p6
-                    - 2 * p2 * p5
-                    - 2 * p3 * p4
-                )
+                b1**2 * p5
+                + 2 * b1 * b2 * p4
+                + 2 * b1 * b3 * p3
+                + 6 * b1 * p6
+                + b2**2 * p3
+                + 2 * b2 * b3 * p2
+                + 6 * b2 * p5
+                + b3**2 * p1
+                + 6 * b3 * p4
+                - 2 * p1 * p6
+                - 2 * p2 * p5
+                - 2 * p3 * p4
             )
         )[0]
         / -4
@@ -536,42 +543,15 @@ def branch_231_reduction() -> dict[str, Any]:
         )[0]
     )
 
-    b1_zero_b2 = sp.Rational(-126, 19) * a2
+    b1_zero_relation = sp.solve(sp.Eq(sp.factor(e11.subs({b1: 0})), 0), b2)[0]
     b1_zero_obstructions = {
-        "E10": str(
-            sp.factor(
-                sp.fraction(
-                    sp.together(e10.subs({b1: 0, b2: b1_zero_b2}))
-                )[0]
-            )
-        ),
-        "E7": str(
-            sp.factor(
-                sp.fraction(
-                    sp.together(e7.subs({b1: 0, b2: b1_zero_b2}))
-                )[0]
-            )
-        ),
-        "E6": str(
-            sp.factor(
-                sp.fraction(
-                    sp.together(
-                        (
-                            -a2**3
-                            + 12 * a2 * a4
-                            + b2**2 * p2
-                            + 6 * b2 * p4
-                            - b3**2
-                            + 6 * b3 * p3
-                            - 2 * p2 * p4
-                            - p3**2
-                            + 11 * p6
-                        ).subs({b1: 0, b2: b1_zero_b2})
-                    )
-                )[0]
-            )
-        ),
+        "E10": str(sp.factor(sp.fraction(sp.together(e10.subs({b1: 0, b2: b1_zero_relation})))[0])),
+        "E7": str(sp.factor(sp.fraction(sp.together(e7.subs({b1: 0, b2: b1_zero_relation})))[0])),
+        "E6": str(sp.factor(sp.fraction(sp.together(e6.subs({b1: 0, b2: b1_zero_relation})))[0])),
     }
+    b1_zero_e7_poly = sp.Poly(sp.expand(sp.fraction(sp.together(e7.subs({b1: 0, b2: b1_zero_relation})))[0]), a2, domain="QQ")
+    ratio = sp.simplify(-b1_zero_e7_poly.nth(0) / b1_zero_e7_poly.nth(2))
+    ratio_square = ratio.is_rational and is_rational_square(sp.Rational(ratio))
 
     odd_branch_resultant = sp.factor(sp.resultant(e11, e7, b2))
     odd_branch_e6_resultant = sp.factor(sp.resultant(e11, e6, b2))
@@ -585,9 +565,10 @@ def branch_231_reduction() -> dict[str, Any]:
         sp.Poly(odd_branch_v10_nonzero, b1, domain="QQ"),
     )
 
+    leading_point = [int(a4), int(b3), int(p6)]
     return {
-        "slug": "branch_lead_2_3_1",
-        "leading_point": [2, 3, 1],
+        "slug": slug,
+        "leading_point": leading_point,
         "result": "no_go",
         "equations": {
             "E6": str(sp.factor(e6)),
@@ -596,13 +577,20 @@ def branch_231_reduction() -> dict[str, Any]:
             "E7": str(sp.factor(e7)),
         },
         "b1_zero_branch": {
-            "b2_relation": "b2 = -(126/19) a2",
+            "b2_relation": f"b2 = {sp.sstr(sp.factor(b1_zero_relation))}",
             "obstructions": b1_zero_obstructions,
             "result": "no_go",
             "proof_summary": [
-                "On b1 = 0, E11 is linear and forces b2 = -(126/19) a2.",
-                "Substituting this into E7 gives 4501 a2^2 - 1444 = 0.",
-                "Since 4501 is not a square, there is no rational a2, so the b1 = 0 branch is impossible.",
+                f"On b1 = 0, E11 is linear and forces b2 = {sp.sstr(sp.factor(b1_zero_relation))}.",
+                f"Substituting this into E7 gives {sp.sstr(sp.factor(b1_zero_e7_poly.as_expr()))} = 0.",
+                (
+                    f"The induced square ratio is {ratio}, which is not a rational square."
+                    if not ratio_square
+                    else f"The induced square ratio is {ratio}."
+                ),
+                "So the b1 = 0 branch is impossible."
+                if not ratio_square
+                else "This branch needs a different obstruction."
             ],
         },
         "odd_branch": {
@@ -634,11 +622,19 @@ def branch_231_reduction() -> dict[str, Any]:
             ],
         },
         "proof_summary": [
-            "The b1 = 0 branch is impossible by the square obstruction 4501 a2^2 - 1444 = 0.",
+            "The b1 = 0 branch is impossible by the exact square obstruction coming from E7 after the linear E11 reduction.",
             "The b1 != 0 branch is impossible because the two exact nonzero-b1 elimination polynomials are coprime.",
-            "Therefore the reduced quartic/cubic/sextic factor-pair branch over the leading point (2, 3, 1) has no rational solution.",
+            f"Therefore the reduced quartic/cubic/sextic factor-pair branch over the leading point {leading_point} has no rational solution.",
         ],
     }
+
+
+def branch_231_reduction() -> dict[str, Any]:
+    return reduced_core_branch_reduction(2, 3, 1, "branch_lead_2_3_1")
+
+
+def branch_238_reduction() -> dict[str, Any]:
+    return reduced_core_branch_reduction(2, 3, 8, "branch_lead_2_3_8")
 
 
 def bounded_quadratic_template(a_bound: int, b_bound: int) -> dict[str, Any]:
@@ -736,13 +732,14 @@ def build_report(x_bound: int, max_examples: int, a_bound: int, b_bound: int) ->
             shifted_even_quartic_cubic_sextic_template(),
             general_quartic_cubic_sextic_reduction(),
             branch_231_reduction(),
+            branch_238_reduction(),
             bounded_quadratic_template(a_bound, b_bound),
         ],
         "next_action": (
-            "Three seed-shifted factor-pair templates are now eliminated exactly, and the first "
-            "reduced-core leading branch (a4, b3, p6) = (2, 3, 1) is also eliminated exactly. "
-            "The live next rung is the reduced quartic/cubic/sextic core on the next leading-surface "
-            "point, starting with (a4, b3, p6) = (2, 3, 8)."
+            "Three seed-shifted factor-pair templates are now eliminated exactly, and the first two "
+            "reduced-core leading branches (a4, b3, p6) = (2, 3, 1) and (2, 3, 8) are also eliminated "
+            "exactly. The live next rung is the reduced quartic/cubic/sextic core on the next "
+            "leading-surface point, starting with (a4, b3, p6) = (4, 4, 8)."
         ),
     }
 
