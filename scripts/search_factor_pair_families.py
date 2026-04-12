@@ -727,6 +727,50 @@ def general_b1_zero_leading_surface_reduction() -> dict[str, Any]:
     }
 
 
+def weighted_scaling_reduction() -> dict[str, Any]:
+    return {
+        "slug": "weighted_scaling_reduction",
+        "result": "symbolic_reduction",
+        "scaling_law": {
+            "variables": {
+                "a2": "T^2 A",
+                "b1": "T B",
+                "b2": "T^2 C",
+                "a4": "T^4 A4",
+                "b3": "T^3 B3",
+                "p6": "T^6 P6",
+            },
+            "equation_weights": {
+                "E6": "T^6",
+                "E7": "T^7",
+                "E10": "T^10",
+                "E11": "T^11",
+            },
+        },
+        "proof_summary": [
+            "The reduced quartic/cubic/sextic core is weighted-homogeneous with weights wt(a2,b1,b2,a4,b3,p6) = (2,1,2,4,3,6).",
+            "Under the scaling (a2,b1,b2,a4,b3,p6) = (T^2 A, T B, T^2 C, T^4 A4, T^3 B3, T^6 P6), the core equations scale as E6 -> T^6 E6, E7 -> T^7 E7, E10 -> T^10 E10, and E11 -> T^11 E11.",
+            "Therefore any exact no-go for a leading point (A4, B3, P6) automatically kills the entire weighted scaling family (T^4 A4, T^3 B3, T^6 P6).",
+            "This explains, for example, why (32, 24, 64) reproduces the same reduced-core obstruction pattern as (2, 3, 1): it is the T = 2 member of the family (2 T^4, 3 T^3, T^6).",
+        ],
+        "eliminated_scaling_families": [
+            "(2 T^4, 3 T^3, T^6)",
+            "(2 T^4, 3 T^3, 8 T^6)",
+            "(4 T^4, 4 T^3, 8 T^6)",
+            "(-8 T^4, 4 T^3, 32 T^6)",
+            "(-8 T^4, 4 T^3, -16 T^6)",
+            "(-20 T^4, 22 T^3, -16 T^6)",
+            "(-18 T^4, 3 T^3, -72 T^6)",
+            "(27 T^4, 18 T^3, 81 T^6)",
+        ],
+        "next_action": (
+            "Stop probing weighted rescalings of already eliminated leading points. Search only primitive leading-surface "
+            "points up to the weighted scaling relation, and push the remaining effort into the universal odd-branch "
+            "elimination and the non-exceptional b1 = 0 square obstruction."
+        ),
+    }
+
+
 def bounded_quadratic_template(a_bound: int, b_bound: int) -> dict[str, Any]:
     u1, v1 = sp.symbols("u1 v1")
     hits = []
@@ -822,6 +866,7 @@ def build_report(x_bound: int, max_examples: int, a_bound: int, b_bound: int) ->
             shifted_even_quartic_cubic_sextic_template(),
             general_quartic_cubic_sextic_reduction(),
             general_b1_zero_leading_surface_reduction(),
+            weighted_scaling_reduction(),
             branch_231_reduction(),
             branch_238_reduction(),
             branch_448_reduction(),
@@ -830,12 +875,12 @@ def build_report(x_bound: int, max_examples: int, a_bound: int, b_bound: int) ->
             bounded_quadratic_template(a_bound, b_bound),
         ],
         "next_action": (
-            "Three seed-shifted factor-pair templates are now eliminated exactly, and every small "
-            "integer leading-surface branch currently listed in the reduced core scan "
-            "((2, 3, 1), (2, 3, 8), (4, 4, 8), (-8, 4, 32), (-8, 4, -16)) is also eliminated exactly. "
-            "The live next rung is no longer a stored branch point. It is the leading-surface equation "
-            "-a4^3 + b3^2 p6 - p6^2 = 0 itself: generate new integer points or parametric families on that "
-            "surface and feed them into the same exact reduced-core elimination."
+            "Three seed-shifted factor-pair templates are now eliminated exactly, the b1 = 0 side of the reduced core "
+            "is symbolically compressed, and every stored small leading-surface branch is eliminated exactly. "
+            "Because the reduced core is weighted-homogeneous, these branch eliminations also kill their entire "
+            "scaling families. The live next rung is to work only with primitive leading-surface points up to weighted "
+            "scaling, while seeking a universal odd-branch elimination and a global proof that the non-exceptional "
+            "b1 = 0 quadratic obstruction cannot be a rational square."
         ),
     }
 

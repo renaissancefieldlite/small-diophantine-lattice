@@ -1,6 +1,6 @@
 # Factor-Pair Search: full_minus2
 
-- Generated: `2026-04-12 14:50:00`
+- Generated: `2026-04-12 14:59:45`
 - Equation: `z^2 + y^2 z + x^3 - 2 = 0`
 
 ## Formulation
@@ -72,6 +72,14 @@
 - Substituting a4 = 205 u^2 gives 25 * 41^3 * u^6 = 2 * 3^2 * 67^2 * 157 * 239 * m^4, which is impossible because the 41-adic valuation would have to satisfy 3 + 6 v41(u) = 4 v41(m).
 - Therefore the exceptional coefficient slice has no integer leading points, so the symbolic b1 = 0 reduction is universal on the integer leading surface.
 
+### weighted_scaling_reduction
+
+- Result: `symbolic_reduction`
+- The reduced quartic/cubic/sextic core is weighted-homogeneous with weights wt(a2,b1,b2,a4,b3,p6) = (2,1,2,4,3,6).
+- Under the scaling (a2,b1,b2,a4,b3,p6) = (T^2 A, T B, T^2 C, T^4 A4, T^3 B3, T^6 P6), the core equations scale as E6 -> T^6 E6, E7 -> T^7 E7, E10 -> T^10 E10, and E11 -> T^11 E11.
+- Therefore any exact no-go for a leading point (A4, B3, P6) automatically kills the entire weighted scaling family (T^4 A4, T^3 B3, T^6 P6).
+- This explains, for example, why (32, 24, 64) reproduces the same reduced-core obstruction pattern as (2, 3, 1): it is the T = 2 member of the family (2 T^4, 3 T^3, T^6).
+
 ### branch_lead_2_3_1
 
 - Result: `no_go`
@@ -114,4 +122,4 @@
 
 ## Next Action
 
-Three seed-shifted factor-pair templates are now eliminated exactly, and every small integer leading-surface branch currently listed in the reduced core scan ((2, 3, 1), (2, 3, 8), (4, 4, 8), (-8, 4, 32), (-8, 4, -16)) is also eliminated exactly. The live next rung is no longer a stored branch point. It is the leading-surface equation -a4^3 + b3^2 p6 - p6^2 = 0 itself: generate new integer points or parametric families on that surface and feed them into the same exact reduced-core elimination.
+Three seed-shifted factor-pair templates are now eliminated exactly, the b1 = 0 side of the reduced core is symbolically compressed, and every stored small leading-surface branch is eliminated exactly. Because the reduced core is weighted-homogeneous, these branch eliminations also kill their entire scaling families. The live next rung is to work only with primitive leading-surface points up to weighted scaling, while seeking a universal odd-branch elimination and a global proof that the non-exceptional b1 = 0 quadratic obstruction cannot be a rational square.
