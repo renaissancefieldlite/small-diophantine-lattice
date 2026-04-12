@@ -440,6 +440,143 @@ def general_quartic_cubic_sextic_reduction() -> dict[str, Any]:
     }
 
 
+def branch_231_reduction() -> dict[str, Any]:
+    a2, b1, b2 = sp.symbols("a2 b1 b2")
+    a4 = sp.Integer(2)
+    b3 = sp.Integer(3)
+    p6 = sp.Integer(1)
+
+    p1 = sp.expand(6 * b1 / 11)
+    p2 = sp.expand((1452 * a2 - 239 * b1**2 + 726 * b2) / 1331)
+    p3 = sp.expand(-2 * (39204 * a2 * b1 - 2460 * b1**3 + 28919 * b1 * b2 - 43923 * b3) / 161051)
+    p4 = sp.expand(
+        -(
+            8521062 * a2**2
+            - 1607364 * a2 * b1**2
+            + 9487368 * a2 * b2
+            - 21258732 * a4
+            - 109550 * b1**4
+            - 1785960 * b1**2 * b2
+            + 6998398 * b1 * b3
+            + 3499199 * b2**2
+        )
+        / 19487171
+    )
+    p5 = sp.expand(
+        2
+        * (
+            116220258 * a2**2 * b1
+            + 34665048 * a2 * b1**3
+            + 194491044 * a2 * b1 * b2
+            - 573985764 * a2 * b3
+            - 573985764 * a4 * b1
+            - 7407990 * b1**5
+            + 26511100 * b1**3 * b2
+            + 108050580 * b1**2 * b3
+            + 108050580 * b1 * b2**2
+            - 423403079 * b2 * b3
+        )
+        / 2357947691
+    )
+
+    e11 = sp.expand(sp.fraction(sp.together(2 * b2 * b3 * p6 + b3**2 * p5 - 2 * p5 * p6))[0] / 4)
+    e7 = sp.expand(
+        sp.fraction(
+            sp.together(
+                (
+                    b1**2 * p5
+                    + 2 * b1 * b2 * p4
+                    + 2 * b1 * b3 * p3
+                    + 6 * b1 * p6
+                    + b2**2 * p3
+                    + 2 * b2 * b3 * p2
+                    + 6 * b2 * p5
+                    + b3**2 * p1
+                    + 6 * b3 * p4
+                    - 2 * p1 * p6
+                    - 2 * p2 * p5
+                    - 2 * p3 * p4
+                )
+            )
+        )[0]
+        / -4
+    )
+    e10 = sp.expand(
+        sp.fraction(
+            sp.together(-3 * a2 * a4**2 + 2 * b1 * b3 * p6 + b2**2 * p6 + 2 * b2 * b3 * p5 + b3**2 * p4 - 2 * p4 * p6 - p5**2)
+        )[0]
+        / -2
+    )
+
+    b1_zero_b2 = sp.Rational(-126, 19) * a2
+    b1_zero_obstructions = {
+        "E10": str(
+            sp.factor(
+                sp.fraction(
+                    sp.together(e10.subs({b1: 0, b2: b1_zero_b2}))
+                )[0]
+            )
+        ),
+        "E7": str(
+            sp.factor(
+                sp.fraction(
+                    sp.together(e7.subs({b1: 0, b2: b1_zero_b2}))
+                )[0]
+            )
+        ),
+        "E6": str(
+            sp.factor(
+                sp.fraction(
+                    sp.together(
+                        (
+                            -a2**3
+                            + 12 * a2 * a4
+                            + b2**2 * p2
+                            + 6 * b2 * p4
+                            - b3**2
+                            + 6 * b3 * p3
+                            - 2 * p2 * p4
+                            - p3**2
+                            + 11 * p6
+                        ).subs({b1: 0, b2: b1_zero_b2})
+                    )
+                )[0]
+            )
+        ),
+    }
+
+    odd_branch_resultant = sp.factor(sp.resultant(e11, e7, b2))
+
+    return {
+        "slug": "branch_lead_2_3_1",
+        "leading_point": [2, 3, 1],
+        "result": "partial_reduction",
+        "equations": {
+            "E11": str(sp.factor(e11)),
+            "E10": str(sp.factor(e10)),
+            "E7": str(sp.factor(e7)),
+        },
+        "b1_zero_branch": {
+            "b2_relation": "b2 = -(126/19) a2",
+            "obstructions": b1_zero_obstructions,
+            "result": "no_go",
+            "proof_summary": [
+                "On b1 = 0, E11 is linear and forces b2 = -(126/19) a2.",
+                "Substituting this into E7 gives 4501 a2^2 - 1444 = 0.",
+                "Since 4501 is not a square, there is no rational a2, so the b1 = 0 branch is impossible.",
+            ],
+        },
+        "odd_branch": {
+            "condition": "b1 != 0",
+            "elimination_object": str(odd_branch_resultant),
+            "next_action": (
+                "Continue on the odd branch by combining this resultant with E10 or E6 to eliminate a2 "
+                "and isolate the remaining b1-candidates."
+            ),
+        },
+    }
+
+
 def bounded_quadratic_template(a_bound: int, b_bound: int) -> dict[str, Any]:
     u1, v1 = sp.symbols("u1 v1")
     hits = []
@@ -534,13 +671,14 @@ def build_report(x_bound: int, max_examples: int, a_bound: int, b_bound: int) ->
             shifted_quadratic_linear_cubic_template(),
             shifted_even_quartic_cubic_sextic_template(),
             general_quartic_cubic_sextic_reduction(),
+            branch_231_reduction(),
             bounded_quadratic_template(a_bound, b_bound),
         ],
         "next_action": (
             "Three seed-shifted factor-pair templates are now eliminated exactly. "
-            "The live next rung is the reduced general quartic/cubic/sextic core on "
-            "(a2, a4, b1, b2, b3, p6), beginning from small leading-surface points such as "
-            "(a4, b3, p6) = (2, 3, 1) or (2, 3, 8)."
+            "The live next rung is the odd branch of the reduced quartic/cubic/sextic core on "
+            "(a2, b1, b2) for the leading point (a4, b3, p6) = (2, 3, 1), after the exact "
+            "elimination of the b1 = 0 branch."
         ),
     }
 

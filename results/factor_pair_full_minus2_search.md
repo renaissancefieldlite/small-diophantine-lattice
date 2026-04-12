@@ -1,6 +1,6 @@
 # Factor-Pair Search: full_minus2
 
-- Generated: `2026-04-12 10:50:12`
+- Generated: `2026-04-12 11:21:10`
 - Equation: `z^2 + y^2 z + x^3 - 2 = 0`
 
 ## Formulation
@@ -57,6 +57,10 @@
 
 - Result: `reduced_core_system`
 
+### branch_lead_2_3_1
+
+- Result: `partial_reduction`
+
 ### shifted_quadratic_quadratic_quadratic
 
 - Result: `no_hit_in_bounded_scan`
@@ -64,4 +68,4 @@
 
 ## Next Action
 
-Three seed-shifted factor-pair templates are now eliminated exactly. The live next rung is the reduced general quartic/cubic/sextic core on (a2, a4, b1, b2, b3, p6), beginning from small leading-surface points such as (a4, b3, p6) = (2, 3, 1) or (2, 3, 8).
+Three seed-shifted factor-pair templates are now eliminated exactly. The live next rung is the odd branch of the reduced quartic/cubic/sextic core on (a2, b1, b2) for the leading point (a4, b3, p6) = (2, 3, 1), after the exact elimination of the b1 = 0 branch.
