@@ -114,6 +114,13 @@ These probes were checked with the exact reduced-core branch eliminator
   `655490594516472*(153732817*a2^2 - 158577354616) = 0`
 - `b1 != 0`: odd-branch intersection gcd is `1`
 
+### `(-56, 13, -343)`
+
+- Result: `no_go`
+- `b1 = 0`: `E11` forces `b2 = -138510*a2/330439`, and `E7` then gives
+  `27312108104853*(20423341069*a2^2 + 12229272464752) = 0`
+- `b1 != 0`: odd-branch intersection gcd is `1`
+
 ## Primitive `b1 = 0` Scan
 
 A direct scan of primitive leading-surface points up to
@@ -157,16 +164,16 @@ Entries 9 and 12 are now exact `no_go` as well, so the practical frontier is
 shrinking toward a much smaller primitive branch set than the raw
 leading-surface point cloud suggests. In the current sign-reduced height
 ordering, the next unresolved representative after these stored deaths is
-`(-56, 13, -343)`.
+`(-98, 49, -343)`.
 
 ## Current Read
 
 The stored reduced-core branches are all dead, and the next five primitive
 representatives `(-36, 18, -108)`, `(75, 130, 25)`, `(-108, 132, -72)`,
-`(-60, 28, -216)`, `(-198, 189, -216)`, and `(92, 312, 8)` are also dead. The
-live solver task is no longer branchwise queue maintenance alone. The odd
-branch is best viewed through the unit normalization `b1 = 1`, with the
-root-swap-fixed slice `2 p6 = b3^2` already collapsed to the eliminated
-scaling family through `(4, 4, 8)`. So the real frontier is the asymmetric
-normalized odd surface `2 P != B^2` together with a global proof that the
-non-exceptional `b1 = 0` square obstruction never hits.
+`(-60, 28, -216)`, `(-198, 189, -216)`, `(92, 312, 8)`, and `(-56, 13, -343)`
+are also dead. The live solver task is no longer branchwise queue maintenance
+alone. The odd branch is best viewed through the unit normalization `b1 = 1`,
+with the root-swap-fixed slice `2 p6 = b3^2` already collapsed to the
+eliminated scaling family through `(4, 4, 8)`. So the real frontier is the
+asymmetric normalized odd surface `2 P != B^2` together with a global proof
+that the non-exceptional `b1 = 0` square obstruction never hits.
