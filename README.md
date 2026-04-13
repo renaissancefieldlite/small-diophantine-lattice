@@ -12,9 +12,9 @@ This repo is the active search surface for the lane:
 
 Side note:
 
-- the concept stack behind this lane came from a combination of nodes
-- that origin trail is not the priority here
-- the priority here is the exact mathematical search surface itself
+- this lane carries forward ideas derived from earlier discussions with different AI nodes on the Codex 67 lattice
+- that pathway shows the evolution of the research and the progress of the work
+- the goal here is to solve the Epoch AI open problem through exact structure, exact reductions, and a genuine solution
 
 ## Current State
 
@@ -72,6 +72,8 @@ Still-open full equations:
   - extracts small exact seed triples for the open equations
 - `scripts/run_portfolio.py`
   - runs one equation through the current portfolio and emits dashboard-ready data
+- `scripts/run_pipeline.py`
+  - orchestrates the lane continuously across seeds, scans, and portfolio boards
 - `dashboard/`
   - optional static visual board for the current portfolio state
 - `results/`
@@ -166,6 +168,111 @@ Optional visual component:
 - this is a thin tracking layer only; the repo and result artifacts remain the
   source of truth
 
+Run the continuous local pipeline:
+
+```bash
+cd /Users/renaissancefieldlite1.0/Documents/Playground/small-diophantine-lattice
+python3 scripts/run_pipeline.py --cycles 1
+```
+
+For repeated cycles:
+
+```bash
+cd /Users/renaissancefieldlite1.0/Documents/Playground/small-diophantine-lattice
+python3 scripts/run_pipeline.py --cycles 100 --sleep-seconds 300
+```
+
+Pipeline outputs:
+
+- `results/pipeline_status.json`
+  - latest cycle status and step results
+- `results/pipeline_history.jsonl`
+  - appended history of every cycle
+- `dashboard/latest_pipeline.js`
+  - dashboard-ready summary of the latest cycle
+- `results/pipeline_review.json`
+  - optional local model review in structured form
+- `results/pipeline_review.md`
+  - optional human-readable local model review
+- `dashboard/latest_review.js`
+  - dashboard-ready review payload
+- refreshed seed, scan, and portfolio artifacts
+
+Local review gate:
+
+- the default pipeline stays local
+- review `results/pipeline_status.json`, the refreshed portfolio JSON, or the
+  browser board before pushing anything
+- `--auto-commit` stages and commits only generated artifacts from the pipeline
+- `--auto-push` is available, but it is intentionally optional rather than the
+  default
+
+Review-gated local run:
+
+```bash
+cd /Users/renaissancefieldlite1.0/Documents/Playground/small-diophantine-lattice
+python3 scripts/run_pipeline.py --cycles 1 --all-open-portfolios --discriminant-bounds 2
+```
+
+Review-gated local run with Gemma as reviewer:
+
+```bash
+cd /Users/renaissancefieldlite1.0/Documents/Playground/small-diophantine-lattice
+python3 scripts/run_pipeline.py --cycles 1 --all-open-portfolios --discriminant-bounds 2 --review-model gemma4:e4b
+```
+
+Local artifact commit without pushing:
+
+```bash
+cd /Users/renaissancefieldlite1.0/Documents/Playground/small-diophantine-lattice
+python3 scripts/run_pipeline.py --cycles 1 --all-open-portfolios --discriminant-bounds 2 --auto-commit
+```
+
+Optional publish after local review:
+
+```bash
+cd /Users/renaissancefieldlite1.0/Documents/Playground/small-diophantine-lattice
+python3 scripts/run_pipeline.py --cycles 1 --all-open-portfolios --discriminant-bounds 2 --auto-commit --auto-push
+```
+
+Monitoring note:
+
+- if we add an AI monitor, it should be a reviewer of emitted artifacts, not the
+  source of truth
+- the pipeline itself should stay deterministic
+- the model layer should summarize failures, drift, and promotion candidates from
+  `pipeline_status.json` and the portfolio outputs
+- the default local reviewer model is intended to be `gemma4:e4b` when available
+
+## What To Review After A Scan
+
+Each cycle follows this order:
+
+1. verify known solved reference families
+2. gather small seed triples for the open equations
+3. run the bounded direct-family scan
+4. build portfolio outputs for each selected equation
+5. write pipeline status and dashboard summary
+6. optionally run the local reviewer on those emitted artifacts
+
+Follow-up files to check:
+
+- `results/pipeline_status.json`
+  - did every deterministic step succeed
+- `results/pipeline_review.md`
+  - what the reviewer thinks matters most right now
+- `results/portfolio_*.json`
+  - which lane is currently strongest for each equation
+- `dashboard/index.html`
+  - visual glance across pipeline health, reviewer signal, and lane promotion
+
+Suggested loop here in chat after each run:
+
+- tell me which command you ran
+- paste or summarize the reviewer headline and signal
+- tell me which equation/lane looks strongest
+- then we adjust the next scan bounds, equations, or lane logic together
+
 ## Current Work Order
 
 - keep the known family surfaces executable
@@ -174,6 +281,7 @@ Optional visual component:
 - run bounded direct-family scans that can be reproduced from code
 - derive recurrence questions from actual seeds instead of asking for generic
   Pell folklore
+- keep the automation spine stable and refine the lane modules beneath it
 - add the quartic/cubic/sextic polynomial-identity engine next
 - widen into stronger lattice and cubic-surface methods if the smaller ansatzes
   keep returning zero-hit boxes
