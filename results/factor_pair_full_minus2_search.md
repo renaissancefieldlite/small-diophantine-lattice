@@ -1,6 +1,6 @@
 # Factor-Pair Search: full_minus2
 
-- Generated: `2026-04-12 14:59:45`
+- Generated: `2026-04-13 10:19:37`
 - Equation: `z^2 + y^2 z + x^3 - 2 = 0`
 
 ## Formulation
@@ -80,6 +80,31 @@
 - Therefore any exact no-go for a leading point (A4, B3, P6) automatically kills the entire weighted scaling family (T^4 A4, T^3 B3, T^6 P6).
 - This explains, for example, why (32, 24, 64) reproduces the same reduced-core obstruction pattern as (2, 3, 1): it is the T = 2 member of the family (2 T^4, 3 T^3, T^6).
 
+### t_sign_symmetry_reduction
+
+- Result: `symbolic_reduction`
+- Replacing t by -t preserves the quartic x(t), the sextic p(t), and the leading coefficient p6, while it flips the odd coefficients b1, b3, p1, p3, and p5.
+- So every reduced-core branch over (a4, b3, p6) has a partner over (a4, -b3, p6) with the same exact solvability status.
+- This lets the primitive leading-surface queue keep only one sign of b3, which is why the current scan window drops from 122 signed primitive branches to 61 sign-reduced representatives.
+
+### root_swap_symmetry_reduction
+
+- Result: `symbolic_reduction`
+- The original equation is quadratic in z, so every solution (x, y, z) has a partner obtained by swapping to the other quadratic root z' = -y^2 - z.
+- In factor-pair language this is exactly the involution (p, q) -> (q, p), since p = -z and q = z + y^2.
+- On reduced-core leading coefficients, the involution fixes a4 and b3 and sends p6 to q6 = b3^2 - p6.
+- Therefore an exact no-go for (a4, b3, p6) automatically gives the same no-go for its paired leading point (a4, b3, b3^2 - p6).
+- This explains, for example, the paired branches (2, 3, 1) <-> (2, 3, 8), (-18, 3, -72) <-> (-18, 3, 81), and (27, 18, 81) <-> (27, 18, 243).
+
+### odd_branch_unit_normalization_reduction
+
+- Result: `symbolic_reduction`
+- On the odd branch b1 != 0, weighted homogeneity lets us divide out b1 completely and rewrite the reduced core in the universal variables (u, v, A, B, P) with b1 normalized to 1.
+- So every odd-branch solution over an integer leading point produces a rational solution of the normalized system (E6, E7, E10, E11) on the rational leading surface -A^3 + B^2 P - P^2 = 0.
+- Inside that normalized odd system, E11 splits off the root-swap-fixed slice 2 P = B^2. There E11 collapses to 2357947691 B^3 v, so the slice is forced onto v = 0.
+- The same slice is exactly the weighted scaling family (A, B, P) = (4 T^4, 4 T^3, 8 T^6), which is already eliminated by the exact no-go at the primitive branch (4, 4, 8).
+- So the live odd frontier is the asymmetric normalized surface 2 P != B^2 together with the unit-normalized equations above.
+
 ### branch_lead_2_3_1
 
 - Result: `no_go`
@@ -122,4 +147,4 @@
 
 ## Next Action
 
-Three seed-shifted factor-pair templates are now eliminated exactly, the b1 = 0 side of the reduced core is symbolically compressed, and every stored small leading-surface branch is eliminated exactly. Because the reduced core is weighted-homogeneous, these branch eliminations also kill their entire scaling families. The live next rung is to work only with primitive leading-surface points up to weighted scaling, while seeking a universal odd-branch elimination and a global proof that the non-exceptional b1 = 0 quadratic obstruction cannot be a rational square.
+Three seed-shifted factor-pair templates are now eliminated exactly, the b1 = 0 side of the reduced core is symbolically compressed, and every stored small leading-surface branch is eliminated exactly. Because the reduced core is weighted-homogeneous and root-swap symmetric, these branch eliminations also kill their entire scaling families and their paired p6 <-> b3^2 - p6 partners. After also quotienting by the exact t -> -t sign symmetry, the live odd frontier now sits on the asymmetric unit-normalized system b1 = 1 with 2 P != B^2. In parallel, the b1 = 0 side still wants a global proof that the non-exceptional quadratic obstruction cannot be a rational square.

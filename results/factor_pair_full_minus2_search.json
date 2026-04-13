@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-12 14:59:45",
+  "generated_at": "2026-04-13 10:19:37",
   "equation": {
     "slug": "full_minus2",
     "equation": "z^2 + y^2 z + x^3 - 2 = 0",
@@ -510,6 +510,78 @@
       "next_action": "Stop probing weighted rescalings of already eliminated leading points. Search only primitive leading-surface points up to the weighted scaling relation, and push the remaining effort into the universal odd-branch elimination and the non-exceptional b1 = 0 square obstruction."
     },
     {
+      "slug": "t_sign_symmetry_reduction",
+      "result": "symbolic_reduction",
+      "symmetry": {
+        "t_map": "t -> -t",
+        "leading_point_map": "(a4, b3, p6) -> (a4, -b3, p6)"
+      },
+      "proof_summary": [
+        "Replacing t by -t preserves the quartic x(t), the sextic p(t), and the leading coefficient p6, while it flips the odd coefficients b1, b3, p1, p3, and p5.",
+        "So every reduced-core branch over (a4, b3, p6) has a partner over (a4, -b3, p6) with the same exact solvability status.",
+        "This lets the primitive leading-surface queue keep only one sign of b3, which is why the current scan window drops from 122 signed primitive branches to 61 sign-reduced representatives."
+      ],
+      "next_action": "Probe only one b3-sign from each primitive branch. The b3 <-> -b3 partner is exact symmetry, not a new surface."
+    },
+    {
+      "slug": "root_swap_symmetry_reduction",
+      "result": "symbolic_reduction",
+      "symmetry": {
+        "z_map": "z -> -y^2 - z",
+        "factor_pair_map": "(p, q) -> (q, p)",
+        "leading_point_map": "(a4, b3, p6) -> (a4, b3, b3^2 - p6)"
+      },
+      "proof_summary": [
+        "The original equation is quadratic in z, so every solution (x, y, z) has a partner obtained by swapping to the other quadratic root z' = -y^2 - z.",
+        "In factor-pair language this is exactly the involution (p, q) -> (q, p), since p = -z and q = z + y^2.",
+        "On reduced-core leading coefficients, the involution fixes a4 and b3 and sends p6 to q6 = b3^2 - p6.",
+        "Therefore an exact no-go for (a4, b3, p6) automatically gives the same no-go for its paired leading point (a4, b3, b3^2 - p6).",
+        "This explains, for example, the paired branches (2, 3, 1) <-> (2, 3, 8), (-18, 3, -72) <-> (-18, 3, 81), and (27, 18, 81) <-> (27, 18, 243)."
+      ],
+      "paired_examples": [
+        "[(2, 3, 1), (2, 3, 8)]",
+        "[(-18, 3, -72), (-18, 3, 81)]",
+        "[(27, 18, 81), (27, 18, 243)]",
+        "[(-24, 20, -32), (-24, 20, 432)]"
+      ],
+      "next_action": "Search primitive leading-surface points only up to weighted scaling and root-swap symmetry. Do not probe both members of the same p6 <-> b3^2 - p6 pair."
+    },
+    {
+      "slug": "odd_branch_unit_normalization_reduction",
+      "result": "symbolic_reduction",
+      "normalization": {
+        "branch_condition": "b1 != 0",
+        "substitution": {
+          "a2": "u b1^2",
+          "b2": "v b1^2",
+          "a4": "A b1^4",
+          "b3": "B b1^3",
+          "p6": "P b1^6"
+        },
+        "leading_surface": "-A^3 + B^2 P - P^2 = 0"
+      },
+      "normalized_equations": {
+        "E6": "249513737484*A*u + 138904554888*A*v - 23533416324*A + 51231772559*B**2 - 47066832648*B*u - 52296480720*B*v - 6415686200*B + 285311670611*P - 1192260553*u**3 - 28125302436*u**2*v - 13678412814*u**2 - 23533416324*u*v**2 - 25166824848*u*v + 7104948180*u - 8716080120*v**3 - 9623529300*v**2 + 8963667900*v - 626093370",
+        "E7": "-2*(-8403725570724*A*B - 3333709317312*A*u - 902879606772*A*v + 1142933208516*A + 198710682687*B**2 + 1701580797378*B*u**2 + 2847543375204*B*u*v + 2793397384800*B*u + 1581968541780*B*v**2 + 2576452024740*B*v - 369078380550*B - 7703415106497*P + 1005623058528*u**3 + 2414471116266*u**2*v - 277528968882*u**2 + 2157995144052*u*v**2 - 1039893188664*u*v - 84903240312*u + 623483178340*v**3 - 824768524800*v**2 - 14747139990*v + 13940039910)",
+        "E10": "-16679751940476694443*A**2*u - 1317838629098654784*A**2 + 6065364341991525252*A*B**2 - 2635677258197309568*A*B*u - 7357932345800822544*A*B*v + 496155957695544960*A*B - 12130728683983050504*A*P + 533670188643256896*A*u**2 + 893080723851980928*A*u*v + 159177952483013376*A*u + 496155957695544960*A*v**2 + 121735951903843200*A*v - 34016646398834880*A - 1996724624980681178*B**3 - 3748997063698563666*B**2*u**2 - 10064789159582164392*B**2*u*v + 954755665815524364*B**2*u - 5708892231678423909*B**2*v**2 + 1894657279811151240*B**2*v - 15443817837910550*B**2 + 15113283876945825318*B*P + 533670188643256896*B*u**3 + 2382910000481073096*B*u**2*v + 58716622205816256*B*u**2 + 2989339645115658384*B*u*v**2 + 397988775046878048*B*u*v - 63981274735857600*B*u + 1385102048566729680*B*v**3 + 246446776358204400*B*v**2 - 117879455714918040*B*v + 6403500929073600*B + 4862316869199817764*P*u**2 + 5413713627562683696*P*u*v - 917199416239958808*P*u + 7556641938472912659*P*v**2 - 1019110462488843120*P*v - 62511787030870100*P - 54028593478346256*u**4 - 180830394498954816*u**3*v - 32230246577139072*u**3 - 251768395062036864*u**2*v**2 - 78585346061551296*u**2*v + 2081005861122144*u**2 - 168118960872044160*u*v**3 - 71214000469729920*u*v**2 + 4174233240070080*u*v + 2054386631468160*u - 46699711353345600*v**4 - 22916317851504000*v**3 + 3592147236233600*v**2 + 1571151709512000*v - 219513263360400",
+        "E11": "2*(-573985764*A*B**2 + 1147971528*A*P - 573985764*B**3*u - 423403079*B**3*v + 108050580*B**3 + 116220258*B**2*u**2 + 194491044*B**2*u*v + 34665048*B**2*u + 108050580*B**2*v**2 + 26511100*B**2*v - 7407990*B**2 + 1147971528*B*P*u + 3204753849*B*P*v - 216101160*B*P - 232440516*P*u**2 - 388982088*P*u*v - 69330096*P*u - 216101160*P*v**2 - 53022200*P*v + 14815980*P)"
+      },
+      "root_swap_fixed_slice": {
+        "condition": "2 P = B^2",
+        "E11_after_substitution": "2357947691*B**3*v",
+        "leading_surface_family": "(A, B, P) = (4 T^4, 4 T^3, 8 T^6)",
+        "status": "killed_by_branch_4_4_8"
+      },
+      "proof_summary": [
+        "On the odd branch b1 != 0, weighted homogeneity lets us divide out b1 completely and rewrite the reduced core in the universal variables (u, v, A, B, P) with b1 normalized to 1.",
+        "So every odd-branch solution over an integer leading point produces a rational solution of the normalized system (E6, E7, E10, E11) on the rational leading surface -A^3 + B^2 P - P^2 = 0.",
+        "Inside that normalized odd system, E11 splits off the root-swap-fixed slice 2 P = B^2. There E11 collapses to 2357947691 B^3 v, so the slice is forced onto v = 0.",
+        "The same slice is exactly the weighted scaling family (A, B, P) = (4 T^4, 4 T^3, 8 T^6), which is already eliminated by the exact no-go at the primitive branch (4, 4, 8).",
+        "So the live odd frontier is the asymmetric normalized surface 2 P != B^2 together with the unit-normalized equations above."
+      ],
+      "next_action": "Stay on primitive representatives modulo weighted scaling, root swap, and t-sign symmetry. For the odd branch, work only on the asymmetric normalized system with b1 = 1 and 2 P != B^2."
+    },
+    {
       "slug": "branch_lead_2_3_1",
       "leading_point": [
         2,
@@ -846,5 +918,5 @@
       "result": "no_hit_in_bounded_scan"
     }
   ],
-  "next_action": "Three seed-shifted factor-pair templates are now eliminated exactly, the b1 = 0 side of the reduced core is symbolically compressed, and every stored small leading-surface branch is eliminated exactly. Because the reduced core is weighted-homogeneous, these branch eliminations also kill their entire scaling families. The live next rung is to work only with primitive leading-surface points up to weighted scaling, while seeking a universal odd-branch elimination and a global proof that the non-exceptional b1 = 0 quadratic obstruction cannot be a rational square."
+  "next_action": "Three seed-shifted factor-pair templates are now eliminated exactly, the b1 = 0 side of the reduced core is symbolically compressed, and every stored small leading-surface branch is eliminated exactly. Because the reduced core is weighted-homogeneous and root-swap symmetric, these branch eliminations also kill their entire scaling families and their paired p6 <-> b3^2 - p6 partners. After also quotienting by the exact t -> -t sign symmetry, the live odd frontier now sits on the asymmetric unit-normalized system b1 = 1 with 2 P != B^2. In parallel, the b1 = 0 side still wants a global proof that the non-exceptional quadratic obstruction cannot be a rational square."
 }
