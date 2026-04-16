@@ -775,6 +775,7 @@ def general_b1_zero_leading_surface_reduction() -> dict[str, Any]:
 
     d_poly = sp.factor(10177 * b3**4 - 6102 * b3**2 * p6 + 688905 * p6**2)
     c_poly = sp.factor(114242 * b3**4 - 1729404 * b3**2 * p6 + 6544962 * p6**2)
+    d_discriminant = sp.factor(sp.discriminant(sp.Poly(d_poly, p6), p6))
     d_on_surface = sp.factor(
         sp.together(d_poly.subs(b3**2, (a4**3 + p6**2) / p6)).as_numer_denom()[0]
     )
@@ -799,6 +800,7 @@ def general_b1_zero_leading_surface_reduction() -> dict[str, Any]:
             "E7_after_b2": str(e7_substituted),
             "leading_surface": "-a4^3 + b3^2 p6 - p6^2 = 0",
             "quadratic_coefficient_D": str(d_poly),
+            "quadratic_discriminant_in_p6": str(d_discriminant),
             "constant_coefficient_C": str(c_poly),
             "C_factorization": str(sp.factor(c_poly)),
             "D_on_leading_surface_numerator": str(d_on_surface),
@@ -814,6 +816,9 @@ def general_b1_zero_leading_surface_reduction() -> dict[str, Any]:
             "Away from that exceptional coefficient, E11 forces an exact proportionality b2 = -(324 a2 (b3^2 - 2 p6)) / (1809 p6 - 239 b3^2).",
             "Substituting this into E7 gives a pure quadratic obstruction in a2 of the form D(a4,b3,p6) a2^2 - a4 C(b3,p6) = 0.",
             "The constant coefficient polynomial satisfies C(b3,p6) = 2 (1809 p6 - 239 b3^2)^2, so the obstruction is controlled by the remaining quadratic coefficient D.",
+            "Viewed as a quadratic in p6, D has discriminant -28006710336 b3^4, so for every integer leading point with b3 != 0 the coefficient D is strictly positive.",
+            "Therefore, away from the exceptional slice, the non-exceptional obstruction D(a4,b3,p6) a2^2 = a4 C(b3,p6) forces a4 > 0 because both D and C are positive.",
+            "So every integer leading point with a4 < 0 is globally impossible on the b1 = 0 branch by sign alone.",
             "On the leading surface b3^2 p6 - p6^2 = a4^3, the numerator of C becomes 2 (-239 a4^3 + 1570 p6^2)^2.",
             "On the exceptional coefficient slice 1809 p6 - 239 b3^2 = 0, E11 collapses to -24 a2 b3^3 / 67, so for integer leading branches with b3 != 0 it forces a2 = 0.",
             "With a2 = 0 on that same slice, E7 reduces to 1089 a4 - 205 b2^2 = 0, so b2 = 33 u and a4 = 205 u^2 for some integer u.",
@@ -822,8 +827,9 @@ def general_b1_zero_leading_surface_reduction() -> dict[str, Any]:
             "Therefore the exceptional coefficient slice has no integer leading points, so the symbolic b1 = 0 reduction is universal on the integer leading surface.",
         ],
         "next_action": (
-            "Use the universal symbolic b1 = 0 obstruction together with the leading-surface equation to prove "
-            "that D(a4,b3,p6) prevents a2^2 from being a rational square on all integer leading points. "
+            "The b1 = 0 branch is now globally eliminated on every integer leading point with a4 < 0. "
+            "For the remaining positive-a4 leading points, use the universal symbolic obstruction together with the "
+            "leading-surface equation to prove that D(a4,b3,p6) prevents a2^2 from being a rational square. "
             "In parallel, seek a general odd-branch elimination on b1 != 0 instead of continuing pointwise branch checks."
         ),
         "e7_numerator": str(e7_numerator),
@@ -1201,8 +1207,8 @@ def build_report(x_bound: int, max_examples: int, a_bound: int, b_bound: int) ->
             "Because the reduced core is weighted-homogeneous and root-swap symmetric, these branch eliminations also "
             "kill their entire scaling families and their paired p6 <-> b3^2 - p6 partners. After also quotienting by "
             "the exact t -> -t sign symmetry, the live odd frontier now sits on the asymmetric unit-normalized system "
-            "b1 = 1 with 2 P != B^2. In parallel, the b1 = 0 side still wants a global proof that the non-exceptional "
-            "quadratic obstruction cannot be a rational square."
+            "b1 = 1 with 2 P != B^2. On the b1 = 0 side, every negative-a4 leading point is now dead globally by sign, "
+            "so the remaining work is to rule out rational squares on the positive-a4 side."
         ),
     }
 

@@ -1,6 +1,6 @@
 # Factor-Pair Search: full_minus2
 
-- Generated: `2026-04-13 10:19:37`
+- Generated: `2026-04-16 00:50:29`
 - Equation: `z^2 + y^2 z + x^3 - 2 = 0`
 
 ## Formulation
@@ -65,6 +65,9 @@
 - Away from that exceptional coefficient, E11 forces an exact proportionality b2 = -(324 a2 (b3^2 - 2 p6)) / (1809 p6 - 239 b3^2).
 - Substituting this into E7 gives a pure quadratic obstruction in a2 of the form D(a4,b3,p6) a2^2 - a4 C(b3,p6) = 0.
 - The constant coefficient polynomial satisfies C(b3,p6) = 2 (1809 p6 - 239 b3^2)^2, so the obstruction is controlled by the remaining quadratic coefficient D.
+- Viewed as a quadratic in p6, D has discriminant -28006710336 b3^4, so for every integer leading point with b3 != 0 the coefficient D is strictly positive.
+- Therefore, away from the exceptional slice, the non-exceptional obstruction D(a4,b3,p6) a2^2 = a4 C(b3,p6) forces a4 > 0 because both D and C are positive.
+- So every integer leading point with a4 < 0 is globally impossible on the b1 = 0 branch by sign alone.
 - On the leading surface b3^2 p6 - p6^2 = a4^3, the numerator of C becomes 2 (-239 a4^3 + 1570 p6^2)^2.
 - On the exceptional coefficient slice 1809 p6 - 239 b3^2 = 0, E11 collapses to -24 a2 b3^3 / 67, so for integer leading branches with b3 != 0 it forces a2 = 0.
 - With a2 = 0 on that same slice, E7 reduces to 1089 a4 - 205 b2^2 = 0, so b2 = 33 u and a4 = 205 u^2 for some integer u.
@@ -147,4 +150,4 @@
 
 ## Next Action
 
-Three seed-shifted factor-pair templates are now eliminated exactly, the b1 = 0 side of the reduced core is symbolically compressed, and every stored small leading-surface branch is eliminated exactly. Because the reduced core is weighted-homogeneous and root-swap symmetric, these branch eliminations also kill their entire scaling families and their paired p6 <-> b3^2 - p6 partners. After also quotienting by the exact t -> -t sign symmetry, the live odd frontier now sits on the asymmetric unit-normalized system b1 = 1 with 2 P != B^2. In parallel, the b1 = 0 side still wants a global proof that the non-exceptional quadratic obstruction cannot be a rational square.
+Three seed-shifted factor-pair templates are now eliminated exactly, the b1 = 0 side of the reduced core is symbolically compressed, and every stored small leading-surface branch is eliminated exactly. Because the reduced core is weighted-homogeneous and root-swap symmetric, these branch eliminations also kill their entire scaling families and their paired p6 <-> b3^2 - p6 partners. After also quotienting by the exact t -> -t sign symmetry, the live odd frontier now sits on the asymmetric unit-normalized system b1 = 1 with 2 P != B^2. On the b1 = 0 side, every negative-a4 leading point is now dead globally by sign, so the remaining work is to rule out rational squares on the positive-a4 side.
