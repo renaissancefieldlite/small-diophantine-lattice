@@ -1,5 +1,7 @@
 (function () {
   const data = window.PORTFOLIO_DATA;
+  const pipeline = window.PIPELINE_STATUS || null;
+  const reviewPayload = window.PIPELINE_REVIEW || null;
 
   function el(tag, className, text) {
     const node = document.createElement(tag);
@@ -42,6 +44,86 @@
       item.append(el("span", "workflow-index", String(index + 1)), el("span", "workflow-text", step));
       workflow.append(item);
     });
+  }
+
+  function renderPipeline() {
+    const panel = document.getElementById("pipeline-panel");
+    const root = document.getElementById("pipeline-card");
+    if (!panel || !root) {
+      return;
+    }
+    if (!pipeline) {
+      panel.remove();
+      return;
+    }
+
+    root.append(
+      detailRow("Generated", pipeline.generated_at),
+      detailRow("Cycle", String(pipeline.cycle_index)),
+      detailRow("Status", pipeline.ok ? "ok" : "failed"),
+      detailRow("Equation Count", String(pipeline.portfolio_equations.length)),
+      detailRow("Artifact Count", String(pipeline.emitted_artifacts.length))
+    );
+
+    const action = el("div", "next-box");
+    action.append(
+      el("p", "next-box-label", "Operator"),
+      el("p", "next-box-text", pipeline.recommended_operator_action)
+    );
+    root.append(action);
+
+    if (pipeline.failed_steps && pipeline.failed_steps.length) {
+      const pre = el("pre", "mini-pre");
+      pre.textContent = "Failed steps:\n" + pipeline.failed_steps.join("\n");
+      root.append(pre);
+    }
+  }
+
+  function renderReview() {
+    const panel = document.getElementById("review-panel");
+    const root = document.getElementById("review-card");
+    if (!panel || !root) {
+      return;
+    }
+    if (!reviewPayload || !reviewPayload.review) {
+      panel.remove();
+      return;
+    }
+
+    const review = reviewPayload.review;
+    root.append(
+      detailRow("Model", reviewPayload.model || "unknown"),
+      detailRow("Generated", reviewPayload.generated_at || "unknown"),
+      detailRow("Signal", review.overall_signal || "unknown"),
+      detailRow("Headline", review.headline || "review"),
+      detailRow("Portfolios", String(reviewPayload.input_summary.portfolio_equation_count || 0))
+    );
+
+    const summary = el("div", "next-box");
+    summary.append(
+      el("p", "next-box-label", "Operator Summary"),
+      el("p", "next-box-text", review.operator_summary || "")
+    );
+    root.append(summary);
+
+    if (review.equation_reviews && review.equation_reviews.length) {
+      const pre = el("pre", "mini-pre");
+      pre.textContent = review.equation_reviews
+        .slice(0, 6)
+        .map(
+          (row) =>
+            `${row.slug}: ${row.priority_lane} | ${row.status}\n` +
+            `reason: ${row.reason}\nnext: ${row.next_action}`
+        )
+        .join("\n\n");
+      root.append(pre);
+    }
+
+    if (review.risks && review.risks.length) {
+      const pre = el("pre", "mini-pre");
+      pre.textContent = "Risks:\n" + review.risks.join("\n");
+      root.append(pre);
+    }
   }
 
   function renderNextAction() {
@@ -149,6 +231,8 @@
   }
 
   renderHero();
+  renderPipeline();
+  renderReview();
   renderWorkflow();
   renderNextAction();
   renderEquation();

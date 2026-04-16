@@ -1,5 +1,5 @@
 window.PORTFOLIO_DATA = {
-  "generated_at": "2026-04-12 09:19:27",
+  "generated_at": "2026-04-12 10:18:25",
   "equation": {
     "slug": "full_minus2",
     "equation": "z^2 + y^2 z + x^3 - 2 = 0",
@@ -156,7 +156,7 @@ window.PORTFOLIO_DATA = {
     }
   ],
   "overview": {
-    "generated_at": "2026-04-12 09:19:27",
+    "generated_at": "2026-04-12 10:18:25",
     "equation_slug": "full_minus2",
     "chosen_seed": {
       "x": -2,

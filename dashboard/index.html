@@ -11,16 +11,100 @@
       <header class="hero">
         <div class="hero-copy">
           <p class="eyebrow">Small Diophantine Lattice</p>
-          <h1>Portfolio Monitor</h1>
+          <h1>Math Search Board</h1>
           <p class="lede">
-            One-equation visual board for the live lane: seed floor, exact search
-            surfaces, current promotion logic, and the next algebraic move.
+            Live board for the current equation: the active search surface, the next algebraic move,
+            and the background search running alongside this thread.
           </p>
         </div>
         <div class="hero-side" id="hero-side"></div>
       </header>
 
       <main class="layout">
+        <section class="panel wide" id="queue-control-panel">
+          <div class="panel-head">
+            <h2>Background Search</h2>
+            <p>Start this once, let it keep moving on its own, and keep the main math thread here in chat.</p>
+          </div>
+          <div class="control-grid compact">
+            <div class="control-box">
+              <h3>What It Does</h3>
+              <div class="plain-list">
+                <p>1. Click <strong>Start Background Search</strong> once.</p>
+                <p>2. It keeps taking the next unresolved points automatically and records the results as it goes.</p>
+                <p>3. Click <strong>Stop</strong> only if you want the background run paused.</p>
+              </div>
+            </div>
+
+            <form class="control-box control-form" id="queue-form">
+              <h3>Autopilot</h3>
+              <div class="autopilot-state" id="autopilot-state"></div>
+              <div class="button-row">
+                <button class="control-button" id="autopilot-start" type="submit">Start Background Search</button>
+                <button class="control-button ghost" id="autopilot-stop" type="button">Stop</button>
+                <button class="control-button ghost" id="refresh-control" type="button">Refresh</button>
+              </div>
+              <p class="control-note" id="control-note">
+                Launch this page through the local control server to enable the background search.
+              </p>
+            </form>
+
+            <div class="control-box" id="queue-status-card">
+              <h3>Search Progress</h3>
+              <div id="queue-status-body"></div>
+            </div>
+          </div>
+
+          <div class="control-box">
+            <h3>Current Snapshot</h3>
+            <div class="section-grid" id="section-grid"></div>
+          </div>
+
+          <div class="control-box">
+            <h3>Recent Results</h3>
+            <div id="summary-grid"></div>
+          </div>
+        </section>
+
+        <section class="panel wide" id="live-state-panel">
+          <div class="panel-head">
+            <h2>Live Search State</h2>
+            <p>Real-time view of the equation, the current stage, the reduction chain, and the next mathematical direction.</p>
+          </div>
+
+          <div class="state-grid" id="live-state-grid">
+            <div class="control-box">
+              <h3>Current Equation</h3>
+              <div id="live-equation"></div>
+            </div>
+
+            <div class="control-box">
+              <h3>Current Stage</h3>
+              <div id="live-stage"></div>
+            </div>
+
+            <div class="control-box">
+              <h3>Current Frontier</h3>
+              <div id="live-frontier"></div>
+            </div>
+
+            <div class="control-box">
+              <h3>Directions</h3>
+              <div id="live-directions"></div>
+            </div>
+          </div>
+
+          <div class="control-box">
+            <h3>Search Evolution</h3>
+            <div class="timeline-grid" id="live-evolution"></div>
+          </div>
+
+          <div class="control-box">
+            <h3>Recent Exact Outcomes</h3>
+            <div class="outcome-grid" id="live-outcomes"></div>
+          </div>
+        </section>
+
         <section class="panel primary">
           <div class="panel-head">
             <h2>Workflow</h2>
@@ -62,5 +146,6 @@
 
     <script src="./latest_portfolio.js"></script>
     <script src="./app.js"></script>
+    <script src="./control.js"></script>
   </body>
 </html>

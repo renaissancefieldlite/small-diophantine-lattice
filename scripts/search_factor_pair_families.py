@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import re
 import time
 from pathlib import Path
 from typing import Any
@@ -17,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA_PATH = ROOT / "data" / "equations.json"
 DEFAULT_JSON_PATH = ROOT / "results" / "factor_pair_full_minus2_search.json"
 DEFAULT_MD_PATH = ROOT / "results" / "factor_pair_full_minus2_search.md"
+PROBE_LOG_PATH = ROOT / "results" / "leading_surface_probe_log.md"
 
 
 def load_json(path: Path) -> Any:
@@ -134,6 +136,107 @@ def is_rational_square(value: sp.Rational) -> bool:
     num_int = int(num)
     den_int = int(den)
     return math.isqrt(num_int) ** 2 == num_int and math.isqrt(den_int) ** 2 == den_int
+
+
+def leading_point_height_key(point: tuple[int, int, int]) -> tuple[int, int, int, int, int, int, int, int]:
+    a4, b3, p6 = point
+    return (
+        max(abs(a4), abs(b3), abs(p6)),
+        abs(a4) + abs(b3) + abs(p6),
+        abs(a4),
+        abs(b3),
+        abs(p6),
+        a4,
+        b3,
+        p6,
+    )
+
+
+def is_weighted_primitive_leading_point(a4: int, b3: int, p6: int) -> bool:
+    scale_bound = int(round(max(abs(a4), abs(b3), abs(p6)) ** 0.25)) + 2
+    for t in range(2, scale_bound + 1):
+        if a4 % (t**4) == 0 and b3 % (t**3) == 0 and p6 % (t**6) == 0:
+            return False
+    return True
+
+
+def canonical_leading_point(a4: int, b3: int, p6: int) -> tuple[int, int, int]:
+    b3_abs = abs(b3)
+    partner = b3_abs * b3_abs - p6
+    candidates = [(a4, b3_abs, p6), (a4, b3_abs, partner)]
+    return min(candidates, key=leading_point_height_key)
+
+
+def primitive_leading_surface_representatives(a4_bound: int = 1200, b3_bound: int = 500) -> list[tuple[int, int, int]]:
+    reps: set[tuple[int, int, int]] = set()
+    for a4 in range(-a4_bound, a4_bound + 1):
+        if a4 == 0:
+            continue
+        a4_cubed = a4**3
+        for b3 in range(1, b3_bound + 1):
+            disc = b3**4 - 4 * a4_cubed
+            if disc < 0:
+                continue
+            sqrt_disc = math.isqrt(disc)
+            if sqrt_disc * sqrt_disc != disc:
+                continue
+            for numerator in (b3 * b3 + sqrt_disc, b3 * b3 - sqrt_disc):
+                if numerator % 2:
+                    continue
+                p6 = numerator // 2
+                if -a4_cubed + b3 * b3 * p6 - p6 * p6 != 0:
+                    continue
+                if not is_weighted_primitive_leading_point(a4, b3, p6):
+                    continue
+                reps.add(canonical_leading_point(a4, b3, p6))
+    return sorted(reps, key=leading_point_height_key)
+
+
+def parse_logged_probe_points(path: Path = PROBE_LOG_PATH) -> set[tuple[int, int, int]]:
+    if not path.exists():
+        return set()
+    pattern = re.compile(r"^### `\((-?\d+), (-?\d+), (-?\d+)\)`$")
+    rows: set[tuple[int, int, int]] = set()
+    for line in path.read_text().splitlines():
+        match = pattern.match(line.strip())
+        if not match:
+            continue
+        rows.add(tuple(int(group) for group in match.groups()))
+    return rows
+
+
+def report_dead_leading_points(report_path: Path = DEFAULT_JSON_PATH) -> set[tuple[int, int, int]]:
+    if not report_path.exists():
+        return set()
+    report = load_json(report_path)
+    rows: set[tuple[int, int, int]] = set()
+    for template in report.get("templates", []):
+        point = template.get("leading_point")
+        if point and template.get("result") == "no_go":
+            rows.add(tuple(int(value) for value in point))
+    return rows
+
+
+def known_dead_leading_points(
+    report_path: Path = DEFAULT_JSON_PATH,
+    probe_log_path: Path = PROBE_LOG_PATH,
+) -> set[tuple[int, int, int]]:
+    return report_dead_leading_points(report_path) | parse_logged_probe_points(probe_log_path)
+
+
+def contiguous_section_rows(
+    rows: list[tuple[int, int, int]],
+    section_index: int,
+    section_count: int,
+) -> list[tuple[int, int, int]]:
+    if section_count < 1:
+        raise ValueError("section_count must be at least 1")
+    if not 1 <= section_index <= section_count:
+        raise ValueError("section_index must satisfy 1 <= section_index <= section_count")
+    chunk_size = (len(rows) + section_count - 1) // section_count
+    start = chunk_size * (section_index - 1)
+    end = min(len(rows), start + chunk_size)
+    return rows[start:end]
 
 
 def shifted_linear_template() -> dict[str, Any]:

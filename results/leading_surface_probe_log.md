@@ -121,6 +121,55 @@ These probes were checked with the exact reduced-core branch eliminator
   `27312108104853*(20423341069*a2^2 + 12229272464752) = 0`
 - `b1 != 0`: odd-branch intersection gcd is `1`
 
+### `(-98, 49, -343)`
+
+- Result: `no_go`
+- `b1 = 0`: `E11` forces `b2 = -1458*a2/1741`, and `E7` then gives
+  `5044336273827081*(6277*a2^2 + 12124324) = 0`
+- `b1 != 0`: odd-branch intersection gcd is `1`
+
+### `(-125, 50, -625)`
+
+- Result: `no_go`
+- `b1 = 0`: `E11` forces `b2 = -1944*a2/2765`, and `E7` then gives
+  `21009313926810*(175229*a2^2 + 382261250) = 0`
+- `b1 != 0`: odd-branch intersection gcd is `1`
+
+### `(-108, 36, -648)`
+
+- Result: `no_go`
+- `b1 = 0`: `E11` forces `b2 = -1296*a2/2287`, and `E7` then gives
+  `75633530136516*(741817*a2^2 + 1129759704) = 0`
+- `b1 != 0`: odd-branch intersection gcd is `1`
+
+### `(-168, 68, -864)`
+
+- Result: `no_go`
+- `b1 = 0`: `E11` forces `b2 = -128628*a2/166757`, and `E7` then gives
+  `142863334702308*(2954068009*a2^2 + 9343453408464) = 0`
+- `b1 != 0`: odd-branch intersection gcd is `1`
+
+### `(-108, 18, -972)`
+
+- Result: `no_go`
+- `b1 = 0`: `E11` forces `b2 = -1134*a2/2833`, and `E7` then gives
+  `37816765068258*(1557157*a2^2 + 1733592024) = 0`
+- `b1 != 0`: odd-branch intersection gcd is `1`
+
+### `(144, 60, 1296)`
+
+- Result: `no_go`
+- `b1 = 0`: `E11` forces `b2 = 1134*a2/5153`, and `E7` then gives
+  `126055883560860*(15197245*a2^2 - 7647381792) = 0`
+- `b1 != 0`: odd-branch intersection gcd is `1`
+
+### `(432, 252, 1296)`
+
+- Result: `no_go`
+- `b1 = 0`: `E11` forces `b2 = -7614*a2/4951`, and `E7` then gives
+  `529434710955612*(6206221*a2^2 - 21178714464) = 0`
+- `b1 != 0`: odd-branch intersection gcd is `1`
+
 ## Primitive `b1 = 0` Scan
 
 A direct scan of primitive leading-surface points up to
@@ -164,16 +213,19 @@ Entries 9 and 12 are now exact `no_go` as well, so the practical frontier is
 shrinking toward a much smaller primitive branch set than the raw
 leading-surface point cloud suggests. In the current sign-reduced height
 ordering, the next unresolved representative after these stored deaths is
-`(-98, 49, -343)`.
+`(-441, 252, -1323)`.
 
 ## Current Read
 
-The stored reduced-core branches are all dead, and the next five primitive
-representatives `(-36, 18, -108)`, `(75, 130, 25)`, `(-108, 132, -72)`,
-`(-60, 28, -216)`, `(-198, 189, -216)`, `(92, 312, 8)`, and `(-56, 13, -343)`
-are also dead. The live solver task is no longer branchwise queue maintenance
-alone. The odd branch is best viewed through the unit normalization `b1 = 1`,
-with the root-swap-fixed slice `2 p6 = b3^2` already collapsed to the
-eliminated scaling family through `(4, 4, 8)`. So the real frontier is the
-asymmetric normalized odd surface `2 P != B^2` together with a global proof
-that the non-exceptional `b1 = 0` square obstruction never hits.
+The stored reduced-core branches are all dead, and the backup runner has also
+cleared `(147, 98, 343)`, `(540, 288, 1944)`, `(100, 50, 500)`,
+`(504, 228, 2592)`, and `(-600, 50, -13500)`. On top of that, the next five
+primitive representatives `(-125, 50, -625)`, `(-108, 36, -648)`,
+`(-168, 68, -864)`, `(-108, 18, -972)`, `(144, 60, 1296)`, and
+`(432, 252, 1296)` are now exact `no_go` as well. The live solver task is no
+longer branchwise queue maintenance alone. The odd branch is best viewed
+through the unit
+normalization `b1 = 1`, with the root-swap-fixed slice `2 p6 = b3^2` already
+collapsed to the eliminated scaling family through `(4, 4, 8)`. So the real
+frontier is the asymmetric normalized odd surface `2 P != B^2` together with a
+global proof that the non-exceptional `b1 = 0` square obstruction never hits.
