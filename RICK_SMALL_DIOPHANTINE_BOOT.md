@@ -42,6 +42,11 @@ This repo currently does four things:
 3. scan the residue for warm-up-style Pell-discriminant substitutions
 4. hold the next attack plan for direct polynomial identities
 
+Route-level continuity for the current factor-pair / reduced-core build is now
+tracked in:
+
+- `DIOPHANTINE_LOG.md`
+
 ## Current Search Split
 
 ### Lane A: Verified known-family surfaces

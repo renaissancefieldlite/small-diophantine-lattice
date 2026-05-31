@@ -64,6 +64,9 @@ Still-open full equations:
   - exact external-model questions for derivation work
 - `RICK_SMALL_DIOPHANTINE_BOOT.md`
   - continuity / baton-pass note for the next Rick
+- `DIOPHANTINE_LOG.md`
+  - current route log connecting the continuity frame to exact factor-pair,
+    reduced-core, dashboard, and odd-branch artifacts
 - `scripts/verify_known_families.py`
   - verifies the known family surfaces and emits explicit giant examples
 - `scripts/search_direct_families.py`

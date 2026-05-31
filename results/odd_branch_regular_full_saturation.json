@@ -1,0 +1,190 @@
+{
+  "generated_at_unix": 1780245193.4105961,
+  "read": "Completed saturation by B; branch not closed yet.",
+  "route": "normalized odd branch regular full saturation",
+  "steps": [
+    {
+      "basis_length": 39,
+      "basis_profile": [
+        {
+          "leading_monomial": "u^2*v^2*B^10",
+          "terms": 337,
+          "total_degree": 14
+        },
+        {
+          "leading_monomial": "u^3*B^11",
+          "terms": 335,
+          "total_degree": 14
+        },
+        {
+          "leading_monomial": "v^7*B^6",
+          "terms": 327,
+          "total_degree": 13
+        },
+        {
+          "leading_monomial": "u^6*B^7",
+          "terms": 327,
+          "total_degree": 13
+        },
+        {
+          "leading_monomial": "u^5*v*B^7",
+          "terms": 327,
+          "total_degree": 13
+        },
+        {
+          "leading_monomial": "u^4*v^2*B^7",
+          "terms": 327,
+          "total_degree": 13
+        },
+        {
+          "leading_monomial": "u^3*v^3*B^7",
+          "terms": 327,
+          "total_degree": 13
+        },
+        {
+          "leading_monomial": "u^2*v^4*B^7",
+          "terms": 327,
+          "total_degree": 13
+        },
+        {
+          "leading_monomial": "u*v^5*B^7",
+          "terms": 327,
+          "total_degree": 13
+        },
+        {
+          "leading_monomial": "v^6*B^7",
+          "terms": 327,
+          "total_degree": 13
+        }
+      ],
+      "contains_one": false,
+      "degree": null,
+      "dimension": 1,
+      "exponent": null,
+      "name": "base",
+      "seconds": 22.236
+    },
+    {
+      "basis_length": 43,
+      "basis_profile": [
+        {
+          "leading_monomial": "v*B^10",
+          "terms": 177,
+          "total_degree": 11
+        },
+        {
+          "leading_monomial": "B^11",
+          "terms": 177,
+          "total_degree": 11
+        },
+        {
+          "leading_monomial": "v^6*B^4",
+          "terms": 174,
+          "total_degree": 10
+        },
+        {
+          "leading_monomial": "u^5*B^5",
+          "terms": 174,
+          "total_degree": 10
+        },
+        {
+          "leading_monomial": "u^4*v*B^5",
+          "terms": 174,
+          "total_degree": 10
+        },
+        {
+          "leading_monomial": "u^3*v^2*B^5",
+          "terms": 174,
+          "total_degree": 10
+        },
+        {
+          "leading_monomial": "u^2*v^3*B^5",
+          "terms": 174,
+          "total_degree": 10
+        },
+        {
+          "leading_monomial": "u*v^4*B^5",
+          "terms": 174,
+          "total_degree": 10
+        },
+        {
+          "leading_monomial": "v^5*B^5",
+          "terms": 174,
+          "total_degree": 10
+        },
+        {
+          "leading_monomial": "u^4*B^6",
+          "terms": 174,
+          "total_degree": 10
+        }
+      ],
+      "contains_one": false,
+      "degree": 176,
+      "dimension": 0,
+      "exponent": 3,
+      "name": "D0",
+      "seconds": 316.113
+    },
+    {
+      "basis_length": 43,
+      "basis_profile": [
+        {
+          "leading_monomial": "v*B^10",
+          "terms": 177,
+          "total_degree": 11
+        },
+        {
+          "leading_monomial": "B^11",
+          "terms": 177,
+          "total_degree": 11
+        },
+        {
+          "leading_monomial": "v^6*B^4",
+          "terms": 174,
+          "total_degree": 10
+        },
+        {
+          "leading_monomial": "u^5*B^5",
+          "terms": 174,
+          "total_degree": 10
+        },
+        {
+          "leading_monomial": "u^4*v*B^5",
+          "terms": 174,
+          "total_degree": 10
+        },
+        {
+          "leading_monomial": "u^3*v^2*B^5",
+          "terms": 174,
+          "total_degree": 10
+        },
+        {
+          "leading_monomial": "u^2*v^3*B^5",
+          "terms": 174,
+          "total_degree": 10
+        },
+        {
+          "leading_monomial": "u*v^4*B^5",
+          "terms": 174,
+          "total_degree": 10
+        },
+        {
+          "leading_monomial": "v^5*B^5",
+          "terms": 174,
+          "total_degree": 10
+        },
+        {
+          "leading_monomial": "u^4*B^6",
+          "terms": 174,
+          "total_degree": 10
+        }
+      ],
+      "contains_one": false,
+      "degree": 176,
+      "dimension": 0,
+      "exponent": 0,
+      "name": "B",
+      "seconds": 129.329
+    }
+  ]
+}

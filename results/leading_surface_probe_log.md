@@ -219,6 +219,90 @@ These probes were checked with the exact reduced-core branch eliminator
   `264717355477806*(1037577*a2^2 - 1596481936) = 0`
 - `b1 != 0`: odd-branch intersection gcd is `1`
 
+### `(-400, 60, -6400)`
+
+- Result: `no_go`
+- `b1 = 0`: `E11` forces `b2 = -1476*a2/3455`, and `E7` then gives
+  `25211176712172*(439661*a2^2 + 1909924000) = 0`
+- `b1 != 0`: odd-branch intersection gcd is `1`
+
+### `(-1053, 414, -6561)`
+
+- Result: `no_go`
+- `b1 = 0`: `E11` forces `b2 = -738072*a2/652253`, and `E7` then gives
+  `869785596569934*(51132833809*a2^2 + 895963953474954) = 0`
+- `b1 != 0`: odd-branch intersection gcd is `1`
+
+### `(900, 300, 9000)`
+
+- Result: `no_go`
+- `b1 = 0`: `E11` forces `b2 = -2592*a2/581`, and `E7` then gives
+  `3151397089021500*(329117*a2^2 - 121521960) = 0`
+- `b1 != 0`: odd-branch intersection gcd is `1`
+
+### `(-500, 50, -10000)`
+
+- Result: `no_go`
+- `b1 = 0`: `E11` forces `b2 = -2916*a2/7475`, and `E7` then gives
+  `4201862785362*(2211413*a2^2 + 11175125000) = 0`
+- `b1 != 0`: odd-branch intersection gcd is `1`
+
+### `(900, 255, 14400)`
+
+- Result: `no_go`
+- `b1 = 0`: `E11` forces `b2 = 52164*a2/46705`, and `E7` then gives
+  `107147501026731*(711777101*a2^2 - 785288529000) = 0`
+- `b1 != 0`: odd-branch intersection gcd is `1`
+
+### `(-605, 22, -14641)`
+
+- Result: `no_go`
+- `b1 = 0`: `E11` forces `b2 = -79704*a2/219845`, and `E7` then gives
+  `46220490638982*(2017874861*a2^2 + 11696301414050) = 0`
+- `b1 != 0`: odd-branch intersection gcd is `1`
+
+### `(-686, 49, -16807)`
+
+- Result: `no_go`
+- `b1 = 0`: `E11` forces `b2 = -2430*a2/6451`, and `E7` then gives
+  `102945638241369*(8452309*a2^2 + 57096330172) = 0`
+- `b1 != 0`: odd-branch intersection gcd is `1`
+
+### `(-900, 150, -18000)`
+
+- Result: `no_go`
+- `b1 = 0`: `E11` forces `b2 = -4212*a2/8431`, and `E7` then gives
+  `1575698544510750*(2279789*a2^2 + 25589433960) = 0`
+- `b1 != 0`: odd-branch intersection gcd is `1`
+
+### `(-1080, 228, -18000)`
+
+- Result: `no_go`
+- `b1 = 0`: `E11` forces `b2 = -49491*a2/78101`, and `E7` then gives
+  `479012357531268*(772860637*a2^2 + 13175494994160) = 0`
+- `b1 != 0`: odd-branch intersection gcd is `1`
+
+### `(-1156, 255, -18496)`
+
+- Result: `no_go`
+- `b1 = 0`: `E11` forces `b2 = -12708*a2/18839`, and `E7` then gives
+  `535737505133655*(42281905*a2^2 + 820547113352) = 0`
+- `b1 != 0`: odd-branch intersection gcd is `1`
+
+### `(882, 231, 21609)`
+
+- Result: `no_go`
+- `b1 = 0`: `E11` forces `b2 = 3726*a2/29861`, and `E7` then gives
+  `485315151709311*(441720901*a2^2 - 1572922322244) = 0`
+- `b1 != 0`: odd-branch intersection gcd is `1`
+
+### `(-1125, 150, -28125)`
+
+- Result: `no_go`
+- `b1 = 0`: `E11` forces `b2 = -4536*a2/10001`, and `E7` then gives
+  `315139708902150*(17507497*a2^2 + 225045002250) = 0`
+- `b1 != 0`: odd-branch intersection gcd is `1`
+
 ## Primitive `b1 = 0` Scan
 
 A direct scan of primitive leading-surface points up to
@@ -262,7 +346,7 @@ Entries 9 and 12 are now exact `no_go` as well, so the practical frontier is
 shrinking toward a much smaller primitive branch set than the raw
 leading-surface point cloud suggests. In the current sign-reduced height
 ordering, the next unresolved representative after these stored deaths is
-`(-400, 60, -6400)`.
+none in the current bounded primitive window.
 
 ## Current Read
 
@@ -273,7 +357,12 @@ primitive representatives `(-125, 50, -625)`, `(-108, 36, -648)`,
 `(-168, 68, -864)`, `(-108, 18, -972)`, `(144, 60, 1296)`, and
 `(432, 252, 1296)`, `(407, 228, 1331)`, `(507, 182, 4563)`,
 `(-300, 20, -5000)`, `(-450, 115, -5000)`, `(-588, 182, -5292)`, and
-`(-900, 360, -5400)`, and `(392, 126, 6272)` are now exact `no_go` as well. In addition, the symbolic
+`(-900, 360, -5400)`, `(392, 126, 6272)`, `(-400, 60, -6400)`,
+`(-1053, 414, -6561)`, `(900, 300, 9000)`, `(-500, 50, -10000)`, and
+`(900, 255, 14400)`, `(-605, 22, -14641)`, `(-686, 49, -16807)`,
+`(-900, 150, -18000)`, `(-1080, 228, -18000)`, `(-1156, 255, -18496)`,
+`(882, 231, 21609)`, and `(-1125, 150, -28125)` are now exact `no_go` as
+well. In addition, the symbolic
 `b1 = 0` obstruction has sharpened: its quadratic coefficient
 `D(a4,b3,p6) = 10177 b3^4 - 6102 b3^2 p6 + 688905 p6^2` has discriminant
 `-28006710336 b3^4` as a quadratic in `p6`, so `D > 0` on every integer
@@ -282,4 +371,117 @@ leading point with `b3 != 0`. Since the constant factor is
 slice, every leading point with `a4 < 0` is now globally impossible on the
 `b1 = 0` branch by sign alone. So the real frontier is the asymmetric
 normalized odd surface `2 P != B^2`, together with the remaining positive-`a4`
-part of the `b1 = 0` square obstruction.
+part of the `b1 = 0` square obstruction. The latest mixed-sign slice also
+shows that the current positive-`a4` frontier points are still dying by the
+same pattern: a rational linear `E11` reduction, a non-square rational `E7`
+obstruction, and odd-branch gcd `1`. In fact, after folding in the latest
+exact deaths, the bounded primitive representative queue is exhausted
+completely. On the odd branch, two special normalized subbranches are now
+eliminated exactly as well: `v = 0` has no solutions, and `B = 0` has no
+solutions (both `P = 0` and `P != 0` cases die). So the surviving odd frontier
+has been compressed to the genuinely generic region `B != 0`, `v != 0`,
+together with the unit normalization `b1 = 1` and the exclusion
+`2 P != B^2`.
+
+## Odd Branch Denominator Locus
+
+Saved run:
+
+- script: `scripts/odd_branch_denominator_locus.sage`
+- artifact: `results/odd_branch_denominator_locus.md`
+
+The normalized odd branch singular denominator locus
+
+`D0 = -131769 B + 53361 u + 44649 v + 7958 = 0`
+
+has now been checked as a reproducible Sage run. The compatibility split has:
+
+- linear branch `11737 u + 6534 v - 1107 = 0`: Groebner basis contains `1`
+- cubic compatibility branch: zero-dimensional of degree `45`; lex basis gives
+  a univariate degree-45 polynomial in `v` with no rational roots
+
+So the `D0 = 0` denominator locus has no rational solution in the normalized
+odd system. The live odd frontier is now the regular generic region:
+
+`D0 != 0`, `B != 0`, `v != 0`, `b1 = 1`, `2 P != B^2`.
+
+## Odd Branch Regular Core
+
+Saved runs:
+
+- script: `scripts/odd_branch_regular_generic.sage`
+- artifact: `results/odd_branch_regular_generic.md`
+- script: `scripts/odd_branch_regular_d0_saturation.sage`
+- artifact: `results/odd_branch_regular_d0_saturation.md`
+- script: `scripts/odd_branch_regular_full_saturation.sage`
+- artifact: `results/odd_branch_regular_full_saturation.md`
+- script: `scripts/odd_branch_regular_candidate_trace.sage`
+- artifact: `results/odd_branch_regular_candidate_trace.md`
+
+On the regular side, solving `E6 = E7 = 0` for `(A, P)` gives rational
+functions with denominator
+
+`D0 = -131769 B + 53361 u + 44649 v + 7958`.
+
+After substituting these rational functions into `E11`, `E10`, and the leading
+surface `-A^3 + B^2 P - P^2 = 0`, the remaining three numerator equations in
+`(u, v, B)` have total degrees `7`, `7`, and `9`.
+
+The unsaturated core has:
+
+- dimension `1`
+- Groebner basis length `39`
+
+Saturating by `D0` has:
+
+- saturation exponent `3`
+- saturated dimension `0`
+- saturated degree / vector-space dimension `176`
+- saturated Groebner basis length `43`
+- no `1` in the ideal
+
+Saturating the finite `D0`-saturated core by `B` has:
+
+- saturation exponent `0`
+- dimension `0`
+- degree / vector-space dimension `176`
+- Groebner basis length `43`
+- no `1` in the ideal
+
+So the regular generic branch is not yet dead over `QQ`, but the surviving
+regular core has been compressed from a curve to a finite degree-176 candidate
+set after removing the already-dead denominator locus. The `B != 0` exclusion
+does not remove that finite core.
+
+## Odd Branch Regular Candidate Trace
+
+Saved run:
+
+- script: `scripts/odd_branch_regular_candidate_trace.sage`
+- artifact: `results/odd_branch_regular_candidate_trace.md`
+
+The `D0`- and `B`-saturated finite regular core has:
+
+- dimension `0`
+- vector-space dimension `176`
+- Groebner basis length `43`
+- `D0` saturation exponent `3`
+- `B` saturation exponent `0`
+
+The rational-candidate test computes the characteristic polynomial for
+multiplication by `B` on this finite quotient. It has:
+
+- degree `176`
+- no rational roots
+
+Therefore the `D0`- and `B`-saturated finite regular core has no rational point
+over `QQ`.
+
+Since the previously seated odd-branch reductions already eliminate
+`2P = B^2`, `v = 0`, `B = 0`, and `D0 = 0`, this closes the normalized odd
+branch over `QQ`.
+
+Remaining global gate:
+
+- keep the positive-`a4` `b1 = 0` rational-square obstruction separate
+- do not claim the full equation solved until that side is globally closed
