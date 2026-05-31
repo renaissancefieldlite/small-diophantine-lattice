@@ -485,3 +485,33 @@ Remaining global gate:
 
 - keep the positive-`a4` `b1 = 0` rational-square obstruction separate
 - do not claim the full equation solved until that side is globally closed
+
+## Positive `a4`, `b1 = 0` Square Scan
+
+Saved run:
+
+- script: `scripts/positive_b1_zero_square_scan.py`
+- artifact: `results/positive_b1_zero_square_scan_bound1000000.md`
+- data: `results/positive_b1_zero_square_scan_bound1000000.json`
+
+The scan enumerates exact positive leading-surface factor pairs by
+
+`p6*q6 = a4^3`, `p6 + q6 = b3^2`,
+
+then tests the non-exceptional `b1 = 0` square obstruction on both root-swap
+sides. The rational-square condition is checked exactly by reducing
+`2*a4 / D(a4,b3,p6)`.
+
+Bounded result for `1 <= a4 <= 1,000,000`:
+
+- positive primitive representatives: `661`
+- checked root-swap sides: `1321`
+- exceptional-slice hits: `0`
+- rational-square hits: `0`
+
+Read:
+
+- this is exact bounded evidence only
+- no positive-`a4` hit has appeared in the widened factor-pair scan
+- the remaining global theorem target is the positive-`a4` rational-square
+  obstruction

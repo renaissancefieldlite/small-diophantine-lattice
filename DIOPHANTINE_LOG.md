@@ -306,6 +306,40 @@ Next exact gate:
 3. do not claim the full equation is solved until that remaining
    `b1 = 0` side is globally closed
 
+### Route 9: Positive-`a4` `b1 = 0` Square Scan
+
+After the odd branch closed, the remaining route moved back to the
+non-exceptional `b1 = 0` obstruction.
+
+Saved artifacts:
+
+- script: `scripts/positive_b1_zero_square_scan.py`
+- artifact: `results/positive_b1_zero_square_scan_bound1000000.md`
+- data: `results/positive_b1_zero_square_scan_bound1000000.json`
+
+Method:
+
+- enumerate factor pairs `p6*q6 = a4^3`
+- require `p6 + q6 = b3^2`
+- keep weighted-primitive positive representatives
+- test the exact obstruction on both root-swap sides
+- the rational-square condition is checked exactly by reducing
+  `2*a4 / D(a4,b3,p6)` and requiring both numerator and denominator to be
+  integer squares
+
+Bounded result for `1 <= a4 <= 1,000,000`:
+
+- positive primitive representatives: `661`
+- checked root-swap sides: `1321`
+- exceptional-slice hits: `0`
+- rational-square hits: `0`
+
+Boundary:
+
+- this is exact bounded evidence, not a global theorem
+- the remaining theorem target is still to prove the positive-`a4`
+  rational-square obstruction globally
+
 ## Dashboard / Automation Route
 
 The browser board is subordinate to the math artifacts.
@@ -343,7 +377,8 @@ Boundary:
 Claim:
 
 - the active `full_minus2` factor-pair route has compressed from a broad
-  primitive leading-point queue to the generic normalized odd branch.
+  primitive leading-point queue to the remaining positive-`a4` `b1 = 0`
+  rational-square obstruction.
 
 Evidence:
 
@@ -351,26 +386,26 @@ Evidence:
 - rendered report in `results/factor_pair_full_minus2_search.md`
 - exact pointwise branch deaths in `results/leading_surface_probe_log.md`
 - pushed negative-`a4` global `b1 = 0` rung at commit `1538e45`
+- pushed normalized odd-branch closure at commit `2ef4c67`
+- exact positive-`a4` bounded square scan through `a4 <= 1,000,000`
 
 Inference:
 
-- the point queue is no longer the best work surface
-- the theorem target is the generic odd branch plus the remaining positive
-  `a4` rational-square obstruction
+- the odd branch is closed over `QQ`
+- the theorem target is now the remaining positive-`a4` `b1 = 0`
+  rational-square obstruction
 
 Hypothesis:
 
-- the generic odd branch may die through denominator-locus splitting plus a
-  regular-branch elimination or modular obstruction
+- the positive-`a4` branch may die by a global arithmetic obstruction on
+  `2*a4 / D(a4,b3,p6)` under `p6*(b3^2-p6)=a4^3`
 
 Next gate:
 
-1. attack the regular branch `D0 != 0` by exact elimination or a justified
-   rational obstruction
-2. keep the active conditions explicit:
-   `D0 != 0`, `B != 0`, `v != 0`, `2P != B^2`
-3. update `results/leading_surface_probe_log.md` only after the exact result
-   is reproducible
+1. convert the positive bounded scan into reusable theorem-search data
+2. seek a global arithmetic obstruction for `2*a4 / D`
+3. update `results/leading_surface_probe_log.md` only after exact results are
+   reproducible
 
 ## Public / Private Boundary
 
